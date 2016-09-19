@@ -1,1 +1,5 @@
-
+# load img file into kvm
+virt-install --name CDH1 --ram 4096 --vcpus 2 --import --disk path=/var/lib/libvirt/images/cloudera-quickstart-vm-5.8.0-0-kvm.qcow2
+//--name is the name of vm
+//---vpus is # of cpu
+// disk is the image you wants to load
