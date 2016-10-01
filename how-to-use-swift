@@ -63,6 +63,17 @@ x-account-project-domain-id: efee8c9885b94c6180d6f0289a02dc62
 X-Trans-Id: tx2ad2a062babd493c86000-0057efda95
 Date: Sat, 01 Oct 2016 15:47:34 GMT
 
+step 3: you can list the container with 
+curl -X GET –i http://proxy:8080/v1/AUTH_88f26c436a8b47b3a44d453ea28d6bd7 -H 'X-Auth_token:gAAAAABX79-9fSDAOhhMx3hb_ZM7M2_JyIeGJHnaFs3LJFW0X63SsPeMW1qZFtoes8J6iMjgsMbPaGWIcLpGdep6Nl2GeyLNGcBmxNwT9nVGLIqhIAoQ7YFWH2mZCV_KaoPk4rqI8s1ab-T5FhTqdGSAorkNL_X2NHUxDly0LHiobBKz8Igazy0'
+[root@proxy ~]# curl -X GET –i http://proxy:8080/v1/AUTH_88f26c436a8b47b3a44d453ea28d6bd7 -H 'X-Auth_token:gAAAAABX79-9fSDAOhhMx3hb_ZM7M2_JyIeGJHnaFs3LJFW0X63SsPeMW1qZFtoes8J6iMjgsMbPaGWIcLpGdep6Nl2GeyLNGcBmxNwT9nVGLIqhIAoQ7YFWH2mZCV_KaoPk4rqI8s1ab-T5FhTqdGSAorkNL_X2NHUxDly0LHiobBKz8Igazy0'
+curl: (6) Could not resolve host: xn--i-5gn; Name or service not known
+SwiftExplorer-1.0.8-jar-with-dependencies.jar
+container1
+test
+test2
+test_container
+test_container2
+testfolder
 
   
   
