@@ -1,0 +1,68 @@
+step 1: get token from keystone:
+note: the controller is the hostname or ip of keystone
+
+
+curl -i \
+  -H "Content-Type: application/json" \
+  -d '
+{ "auth": {
+    "identity": {
+      "methods": ["password"],
+      "password": {
+        "user": {
+          "name": "swift",
+          "domain": { "name": "default" },
+          "password": "a11"
+        }
+      }
+    },
+    "scope": {
+      "project": {
+        "name": "service",
+        "domain": { "name": "default" }
+      }
+    }
+  }
+}' \
+  http://controller:5000/v3/auth/tokens
+  
+then you will get response of token and access entry "http://proxy:8080/v1/AUTH_c9389ea349db423c966a667a52ea057f" following, the X-Subject-To
+gAAAAABX79UpPPpwZAWt63VEQn7dDq5yGTzr5KnYcBMrfjBHz8KOMmSsR98vjn6ifHnPevMExKqqEXq9vYA7pg9FgGzNM7EyDGOHFOCcS4fMpcy9eB9OvO_u-Q_emyTAPiw2JIVOtO-UduF85LndP3Akyr3N57k-mjETsnyTud5YjpCEiF2pZIU
+  
+HTTP/1.1 201 Created
+Date: Sat, 01 Oct 2016 15:24:24 GMT
+Server: Apache/2.4.6 (CentOS) mod_wsgi/3.4 Python/2.7.5
+X-Subject-Token: gAAAAABX79UpPPpwZAWt63VEQn7dDq5yGTzr5KnYcBMrfjBHz8KOMmSsR98vjn6ifHnPevMExKqqEXq9vYA7pg9FgGzNM7EyDGOHFOCcS4fMpcy9eB9OvO_u-Q_emyTAPiw2JIVOtO-UduF85LndP3Akyr3N57k-mjETsnyTud5YjpCEiF2pZIU
+Vary: X-Auth-Token
+x-openstack-request-id: req-41dfe8f2-24e3-4aba-b383-dafbf8cbd234
+Content-Length: 1715
+Content-Type: application/json
+
+{"token": {"methods": ["password"], "roles": [{"id": "85dddabd9e1e4bc8898ac35c1ebd0c09", "name": "admin"}], "expires_at": "2016-10-01T16:24:25.497060Z", "project": {"domain": {"id": "efee8c9885b94c6180d6f0289a02dc62", "name": "default"}, "id": "c9389ea349db423c966a667a52ea057f", "name": "service"}, "catalog": [{"endpoints": [{"region_id": "RegionOne", "url": "http://controller:5000/v3", "region": "RegionOne", "interface": "internal", "id": "2b7b7be3d8334e908027b5743c0b7389"}, {"region_id": "RegionOne", "url": "http://controller:35357/v3", "region": "RegionOne", "interface": "admin", "id": "4dcf6a75d88442c28ed9142c2a1e134a"}, {"region_id": "RegionOne", "url": "http://controller:5000/v3", "region": "RegionOne", "interface": "public", "id": "c2f0c6167df2473aa80b90d7096977d9"}], "type": "identity", "id": "3b6340f925ae47248a03b8fc3eec8708", "name": "keystone"}, {"endpoints": [{"region_id": "RegionOne", "url": "http://proxy:8080/v1", "region": "RegionOne", "interface": "admin", "id": "567fa85abf5442a590bb558bfa8168fd"}, {"region_id": "RegionOne", "url": "http://proxy:8080/v1/AUTH_c9389ea349db423c966a667a52ea057f", "region": "RegionOne", "interface": "internal", "id": "5ec6a2a485f042619698626e15c25ba7"}, {"region_id": "RegionOne", "url": "http://proxy:8080/v1/AUTH_c9389ea349db423c966a667a52ea057f", "region": "RegionOne", "interface": "public", "id": "b4a0958472d14a3f965eea4c8d23b9a4"}], "type": "object-store", "id": "7af124c79d524b76a93c36d7da58a31f", "name": "swift"}], "user": {"domain": {"id": "efee8c9885b94c6180d6f0289a02dc62", "name": "default"}, "id": "1f3cc5d[root@proxy ~]#
+
+
+step 2:
+append the token in your future , get info of current user from proxy server
+curl -X HEAD  -i http://proxy:8080/v1/AUTH_c9389ea349db423c966a667a52ea057f \
+-H 'X-Auth-Token: gAAAAABX79UpPPpwZAWt63VEQn7dDq5yGTzr5KnYcBMrfjBHz8KOMmSsR98vjn6ifHnPevMExKqqEXq9vYA7pg9FgGzNM7EyDGOHFOCcS4fMpcy9eB9OvO_u-Q_emyTAPiw2JIVOtO-UduF85LndP3Akyr3N57k-mjETsnyTud5YjpCEiF2pZIU' -H 'Content-type: application/json'
+
+you will get:
+[root@proxy ~]# curl -X HEAD  -i http://proxy:8080/v1/AUTH_c9389ea349db423c966a667a52ea057f -H 'X-Auth-Token: gAAAAABX79UpPPpwZAWt63VEQn7dDq5yGTzr5KnYcBMrfjBHz8KOMmSsR98vjn6ifHnPevMExKqqEXq9vYA7pg9FgGzNM7EyDGOHFOCcS4fMpcy9eB9OvO_u-Q_emyTAPiw2JIVOtO-UduF85LndP3Akyr3N57k-mjETsnyTud5YjpCEiF2pZIU' -H 'Content-type: application/json'
+HTTP/1.1 204 No Content
+Content-Length: 0
+X-Account-Object-Count: 1
+X-Account-Storage-Policy-Policy-0-Bytes-Used: 17537226
+X-Account-Storage-Policy-Policy-0-Container-Count: 4
+X-Timestamp: 1474769663.00534
+X-Account-Storage-Policy-Policy-0-Object-Count: 1
+X-Account-Bytes-Used: 17537226
+X-Account-Container-Count: 4
+Content-Type: text/plain; charset=utf-8
+Accept-Ranges: bytes
+x-account-project-domain-id: efee8c9885b94c6180d6f0289a02dc62
+X-Trans-Id: tx2ad2a062babd493c86000-0057efda95
+Date: Sat, 01 Oct 2016 15:47:34 GMT
+
+
+  
+  
