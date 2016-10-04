@@ -16,8 +16,8 @@ ceph node deployment:
 192.168.1.131 controller
 192.168.1.133 proxy     // use this as entry point
 192.168.1.110 object1
-192.168.1.135 object2
-192.168.1.134 object3
+192.168.1.112 object2
+192.168.1.113 object3
 
 
 
