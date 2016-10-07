@@ -20,4 +20,9 @@ ceph node deployment:
 192.168.1.113 object3
 
 
+192.168.1.121 tian-namenode
+192.168.1.120 tian-datanode1
+192.168.1.119 tian-datanode2
+192.168.1.118 tian-datanode3
+
 
