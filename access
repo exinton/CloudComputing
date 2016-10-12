@@ -31,4 +31,7 @@ hadoop cluster
 192.168.1.142 leo-slave-2
 192.168.1.143 leo-slave-3
 
+test-project
+192.168.1.144 test-client // launch all the request to object-storage
+
 
