@@ -12,6 +12,7 @@ ceph node deployment:
 192.168.1.109   osd3
 192.168.1.101   client  // use this as entry point
 192.168.1.104   mds1
+192.168.1.130   keystone-ceph
 
 192.168.1.131 controller
 192.168.1.133 proxy     // use this as entry point
