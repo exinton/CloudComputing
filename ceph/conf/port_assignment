@@ -1,0 +1,8 @@
+port assignment
+
+CEPH_MONITORS = 127.0.0.1:10011
+OSD_READ_SERVER_PORT = 10012
+OSD_WRITE_SERVER_PORT = 10013
+OSD_READ_WRITE_SERVER_PORT = 10013
+port=10014
+CEPH_DATA_DIR = /home/tongxin/Dropbox/UTDallas/cloudcomputing/ceph/ceph/data

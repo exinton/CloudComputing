@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>edu.utdalls</groupId>
+	<artifactId>osd</artifactId>
+	<version>1.0-SNAPSHOT</version>
+
+	<name>OSD</name>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.ini4j</groupId>
+			<artifactId>ini4j</artifactId>
+			<version>[0.5.0,)</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-pool2</artifactId>
+			<version>[2.2,)</version>
+		</dependency>
+	 <dependency>
+	  <groupId>ceph-util</groupId>
+	  <artifactId>Ceph-Util</artifactId>
+	  <version>1.0-SNAPSHOT</version>
+	  <exclusions>
+	   <exclusion>
+	    <groupId>edu.utdalls</groupId>
+	    <artifactId>net-control</artifactId>
+	   </exclusion>
+	  </exclusions>
+	 </dependency>
+	 <dependency>
+	  <groupId>${project.groupId}</groupId>
+	  <artifactId>net-control</artifactId>
+	  <version>1.0-SNAPSHOT</version>
+	  <type>jar</type>
+	 </dependency>
+	 <dependency>
+	  <groupId>com.fasterxml.jackson.core</groupId>
+	  <artifactId>jackson-databind</artifactId>
+	  <version>2.5.0</version>
+	  <type>jar</type>
+	 </dependency>
+	</dependencies>
+	<properties>
+		<maven.compiler.source>1.7</maven.compiler.source>
+		<maven.compiler.target>1.7</maven.compiler.target>
+	</properties>
+        
+         <build>
+  <plugins>
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-jar-plugin</artifactId>
+      <version>2.3.1</version>
+      <configuration>
+        <outputDirectory>../ceph/lib</outputDirectory>
+      </configuration>
+    </plugin>
+  </plugins>
+</build>
+</project>

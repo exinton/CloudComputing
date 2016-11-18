@@ -1,0 +1,914 @@
+{
+  "epochVal" : 1477355902003,
+  "node" : {
+    "levelNo" : 0,
+    "id" : "0",
+    "type" : "root",
+    "weight" : 18.0,
+    "hiddenWeight" : 0.2571,
+    "isHidden" : false,
+    "isDisk" : false,
+    "hashRange" : 1.0,
+    "hiddenHashRange" : 1.0,
+    "isFailed" : false,
+    "isOverloaded" : false,
+    "isAlreadySelected" : false,
+    "children" : [ {
+      "levelNo" : 1,
+      "id" : "1",
+      "type" : "row",
+      "weight" : 18.0,
+      "hiddenWeight" : 0.2571,
+      "isHidden" : false,
+      "isDisk" : false,
+      "hashRange" : 1.0,
+      "hiddenHashRange" : 1.0,
+      "isFailed" : false,
+      "isOverloaded" : false,
+      "isAlreadySelected" : false,
+      "children" : [ {
+        "levelNo" : 2,
+        "id" : "11",
+        "type" : "cabinet",
+        "weight" : 5.0,
+        "hiddenWeight" : 0.2571,
+        "isHidden" : false,
+        "isDisk" : false,
+        "hashRange" : 0.2777777777777778,
+        "hiddenHashRange" : 0.28794825026975807,
+        "isFailed" : false,
+        "isOverloaded" : false,
+        "isAlreadySelected" : false,
+        "children" : [ {
+          "levelNo" : 3,
+          "id" : "51",
+          "type" : "idDisk",
+          "weight" : 0.0,
+          "hiddenWeight" : 0.123,
+          "isHidden" : true,
+          "isDisk" : true,
+          "hashRange" : 0.0,
+          "hiddenHashRange" : 0.023396929866276082,
+          "isFailed" : false,
+          "isOverloaded" : false,
+          "address" : {
+            "ip" : "192.188.1.2",
+            "port" : 4321
+          },
+          "isAlreadySelected" : false,
+          "children" : [ ],
+          "underProcessing" : false
+        }, {
+          "levelNo" : 3,
+          "id" : "47",
+          "type" : "isDisk",
+          "weight" : 0.0,
+          "hiddenWeight" : 0.0111,
+          "isHidden" : true,
+          "isDisk" : true,
+          "hashRange" : 0.0,
+          "hiddenHashRange" : 0.002215082516812676,
+          "isFailed" : true,
+          "isOverloaded" : false,
+          "address" : {
+            "ip" : "1.1.1.1",
+            "port" : 11111
+          },
+          "isAlreadySelected" : false,
+          "children" : [ ],
+          "underProcessing" : false
+        }, {
+          "levelNo" : 3,
+          "id" : "42",
+          "type" : "disk",
+          "weight" : 1.0,
+          "hiddenWeight" : 0.0,
+          "isHidden" : false,
+          "isDisk" : true,
+          "hashRange" : 0.2,
+          "hiddenHashRange" : 0.2,
+          "isFailed" : false,
+          "isOverloaded" : false,
+          "address" : {
+            "ip" : "192.168.1.130",
+            "port" : 9090
+          },
+          "isAlreadySelected" : false,
+          "children" : [ ],
+          "underProcessing" : false
+        }, {
+          "levelNo" : 3,
+          "id" : "111",
+          "type" : "disk",
+          "weight" : 1.0,
+          "hiddenWeight" : 0.0,
+          "isHidden" : false,
+          "isDisk" : true,
+          "hashRange" : 0.25,
+          "hiddenHashRange" : 0.25,
+          "isFailed" : false,
+          "isOverloaded" : false,
+          "address" : {
+            "ip" : "192.168.1.118",
+            "port" : 9090
+          },
+          "isAlreadySelected" : false,
+          "children" : [ ],
+          "underProcessing" : false
+        }, {
+          "levelNo" : 3,
+          "id" : "112",
+          "type" : "disk",
+          "weight" : 1.0,
+          "hiddenWeight" : 0.0,
+          "isHidden" : false,
+          "isDisk" : true,
+          "hashRange" : 0.3333333333333333,
+          "hiddenHashRange" : 0.3333333333333333,
+          "isFailed" : false,
+          "isOverloaded" : false,
+          "address" : {
+            "ip" : "192.168.1.119",
+            "port" : 9090
+          },
+          "isAlreadySelected" : false,
+          "children" : [ ],
+          "underProcessing" : false
+        }, {
+          "levelNo" : 3,
+          "id" : "113",
+          "type" : "disk",
+          "weight" : 1.0,
+          "hiddenWeight" : 0.0,
+          "isHidden" : false,
+          "isDisk" : true,
+          "hashRange" : 0.5,
+          "hiddenHashRange" : 0.5,
+          "isFailed" : false,
+          "isOverloaded" : false,
+          "address" : {
+            "ip" : "192.168.1.124",
+            "port" : 9090
+          },
+          "isAlreadySelected" : false,
+          "children" : [ ],
+          "underProcessing" : false
+        }, {
+          "levelNo" : 3,
+          "id" : "114",
+          "type" : "disk",
+          "weight" : 1.0,
+          "hiddenWeight" : 0.0,
+          "isHidden" : false,
+          "isDisk" : true,
+          "hashRange" : 1.0,
+          "hiddenHashRange" : 1.0,
+          "isFailed" : false,
+          "isOverloaded" : false,
+          "address" : {
+            "ip" : "192.168.1.126",
+            "port" : 9090
+          },
+          "isAlreadySelected" : false,
+          "children" : [ ],
+          "underProcessing" : false
+        } ],
+        "underProcessing" : false
+      }, {
+        "levelNo" : 2,
+        "id" : "12",
+        "type" : "cabinet",
+        "weight" : 4.0,
+        "hiddenWeight" : 0.0,
+        "isHidden" : false,
+        "isDisk" : false,
+        "hashRange" : 0.3076923076923077,
+        "hiddenHashRange" : 0.3076923076923077,
+        "isFailed" : false,
+        "isOverloaded" : false,
+        "isAlreadySelected" : false,
+        "children" : [ {
+          "levelNo" : 3,
+          "id" : "121",
+          "type" : "disk",
+          "weight" : 1.0,
+          "hiddenWeight" : 0.0,
+          "isHidden" : false,
+          "isDisk" : true,
+          "hashRange" : 0.25,
+          "hiddenHashRange" : 0.25,
+          "isFailed" : false,
+          "isOverloaded" : false,
+          "address" : {
+            "ip" : "192.168.1.127",
+            "port" : 9090
+          },
+          "isAlreadySelected" : false,
+          "children" : [ ],
+          "underProcessing" : false
+        }, {
+          "levelNo" : 3,
+          "id" : "122",
+          "type" : "disk",
+          "weight" : 1.0,
+          "hiddenWeight" : 0.0,
+          "isHidden" : false,
+          "isDisk" : true,
+          "hashRange" : 0.3333333333333333,
+          "hiddenHashRange" : 0.3333333333333333,
+          "isFailed" : false,
+          "isOverloaded" : false,
+          "address" : {
+            "ip" : "192.168.1.117",
+            "port" : 9090
+          },
+          "isAlreadySelected" : false,
+          "children" : [ ],
+          "underProcessing" : false
+        }, {
+          "levelNo" : 3,
+          "id" : "123",
+          "type" : "disk",
+          "weight" : 1.0,
+          "hiddenWeight" : 0.0,
+          "isHidden" : false,
+          "isDisk" : true,
+          "hashRange" : 0.5,
+          "hiddenHashRange" : 0.5,
+          "isFailed" : false,
+          "isOverloaded" : false,
+          "address" : {
+            "ip" : "192.168.1.108",
+            "port" : 9090
+          },
+          "isAlreadySelected" : false,
+          "children" : [ ],
+          "underProcessing" : false
+        }, {
+          "levelNo" : 3,
+          "id" : "124",
+          "type" : "disk",
+          "weight" : 1.0,
+          "hiddenWeight" : 0.0,
+          "isHidden" : false,
+          "isDisk" : true,
+          "hashRange" : 1.0,
+          "hiddenHashRange" : 1.0,
+          "isFailed" : false,
+          "isOverloaded" : false,
+          "address" : {
+            "ip" : "192.168.1.116",
+            "port" : 9090
+          },
+          "isAlreadySelected" : false,
+          "children" : [ ],
+          "underProcessing" : false
+        } ],
+        "underProcessing" : false
+      }, {
+        "levelNo" : 2,
+        "id" : "13",
+        "type" : "cabinet",
+        "weight" : 4.0,
+        "hiddenWeight" : 0.0,
+        "isHidden" : false,
+        "isDisk" : false,
+        "hashRange" : 0.4444444444444444,
+        "hiddenHashRange" : 0.4444444444444444,
+        "isFailed" : false,
+        "isOverloaded" : false,
+        "isAlreadySelected" : false,
+        "children" : [ {
+          "levelNo" : 3,
+          "id" : "131",
+          "type" : "disk",
+          "weight" : 1.0,
+          "hiddenWeight" : 0.0,
+          "isHidden" : false,
+          "isDisk" : true,
+          "hashRange" : 0.25,
+          "hiddenHashRange" : 0.25,
+          "isFailed" : false,
+          "isOverloaded" : false,
+          "address" : {
+            "ip" : "192.168.1.125",
+            "port" : 9090
+          },
+          "isAlreadySelected" : false,
+          "children" : [ ],
+          "underProcessing" : false
+        }, {
+          "levelNo" : 3,
+          "id" : "132",
+          "type" : "disk",
+          "weight" : 1.0,
+          "hiddenWeight" : 0.0,
+          "isHidden" : false,
+          "isDisk" : true,
+          "hashRange" : 0.3333333333333333,
+          "hiddenHashRange" : 0.3333333333333333,
+          "isFailed" : false,
+          "isOverloaded" : false,
+          "address" : {
+            "ip" : "192.168.1.128",
+            "port" : 9090
+          },
+          "isAlreadySelected" : false,
+          "children" : [ ],
+          "underProcessing" : false
+        }, {
+          "levelNo" : 3,
+          "id" : "133",
+          "type" : "disk",
+          "weight" : 1.0,
+          "hiddenWeight" : 0.0,
+          "isHidden" : false,
+          "isDisk" : true,
+          "hashRange" : 0.5,
+          "hiddenHashRange" : 0.5,
+          "isFailed" : false,
+          "isOverloaded" : false,
+          "address" : {
+            "ip" : "192.168.1.106",
+            "port" : 9090
+          },
+          "isAlreadySelected" : false,
+          "children" : [ ],
+          "underProcessing" : false
+        }, {
+          "levelNo" : 3,
+          "id" : "134",
+          "type" : "disk",
+          "weight" : 1.0,
+          "hiddenWeight" : 0.0,
+          "isHidden" : false,
+          "isDisk" : true,
+          "hashRange" : 1.0,
+          "hiddenHashRange" : 1.0,
+          "isFailed" : false,
+          "isOverloaded" : false,
+          "address" : {
+            "ip" : "192.168.1.107",
+            "port" : 9090
+          },
+          "isAlreadySelected" : false,
+          "children" : [ ],
+          "underProcessing" : false
+        } ],
+        "underProcessing" : false
+      }, {
+        "levelNo" : 2,
+        "id" : "14",
+        "type" : "cabinet",
+        "weight" : 5.0,
+        "hiddenWeight" : 0.0,
+        "isHidden" : false,
+        "isDisk" : false,
+        "hashRange" : 1.0,
+        "hiddenHashRange" : 1.0,
+        "isFailed" : false,
+        "isOverloaded" : false,
+        "isAlreadySelected" : false,
+        "children" : [ {
+          "levelNo" : 3,
+          "id" : "141",
+          "type" : "disk",
+          "weight" : 1.0,
+          "hiddenWeight" : 0.0,
+          "isHidden" : false,
+          "isDisk" : true,
+          "hashRange" : 0.2,
+          "hiddenHashRange" : 0.2,
+          "isFailed" : false,
+          "isOverloaded" : false,
+          "address" : {
+            "ip" : "192.168.1.109",
+            "port" : 9090
+          },
+          "isAlreadySelected" : false,
+          "children" : [ ],
+          "underProcessing" : false
+        }, {
+          "levelNo" : 3,
+          "id" : "142",
+          "type" : "disk",
+          "weight" : 1.0,
+          "hiddenWeight" : 0.0,
+          "isHidden" : false,
+          "isDisk" : true,
+          "hashRange" : 0.25,
+          "hiddenHashRange" : 0.25,
+          "isFailed" : false,
+          "isOverloaded" : false,
+          "address" : {
+            "ip" : "192.168.1.110",
+            "port" : 9090
+          },
+          "isAlreadySelected" : false,
+          "children" : [ ],
+          "underProcessing" : false
+        }, {
+          "levelNo" : 3,
+          "id" : "143",
+          "type" : "disk",
+          "weight" : 1.0,
+          "hiddenWeight" : 0.0,
+          "isHidden" : false,
+          "isDisk" : true,
+          "hashRange" : 0.3333333333333333,
+          "hiddenHashRange" : 0.3333333333333333,
+          "isFailed" : false,
+          "isOverloaded" : false,
+          "address" : {
+            "ip" : "192.168.1.113",
+            "port" : 9090
+          },
+          "isAlreadySelected" : false,
+          "children" : [ ],
+          "underProcessing" : false
+        }, {
+          "levelNo" : 3,
+          "id" : "144",
+          "type" : "disk",
+          "weight" : 1.0,
+          "hiddenWeight" : 0.0,
+          "isHidden" : false,
+          "isDisk" : true,
+          "hashRange" : 0.5,
+          "hiddenHashRange" : 0.5,
+          "isFailed" : false,
+          "isOverloaded" : false,
+          "address" : {
+            "ip" : "192.168.1.114",
+            "port" : 9090
+          },
+          "isAlreadySelected" : false,
+          "children" : [ ],
+          "underProcessing" : false
+        }, {
+          "levelNo" : 3,
+          "id" : "145",
+          "type" : "disk",
+          "weight" : 1.0,
+          "hiddenWeight" : 0.0,
+          "isHidden" : false,
+          "isDisk" : true,
+          "hashRange" : 1.0,
+          "hiddenHashRange" : 1.0,
+          "isFailed" : false,
+          "isOverloaded" : false,
+          "address" : {
+            "ip" : "192.168.1.129",
+            "port" : 9090
+          },
+          "isAlreadySelected" : false,
+          "children" : [ ],
+          "underProcessing" : false
+        } ],
+        "underProcessing" : false
+      } ],
+      "underProcessing" : false
+    } ],
+    "underProcessing" : false
+  },
+  "nodeList" : [ {
+    "ip" : "1.1.1.1",
+    "port" : 11111
+  }, {
+    "ip" : "192.168.1.130",
+    "port" : 9090
+  }, {
+    "ip" : "192.168.1.118",
+    "port" : 9090
+  }, {
+    "ip" : "192.168.1.119",
+    "port" : 9090
+  }, {
+    "ip" : "192.168.1.124",
+    "port" : 9090
+  }, {
+    "ip" : "192.168.1.126",
+    "port" : 9090
+  }, {
+    "ip" : "192.168.1.127",
+    "port" : 9090
+  }, {
+    "ip" : "192.168.1.117",
+    "port" : 9090
+  }, {
+    "ip" : "192.168.1.108",
+    "port" : 9090
+  }, {
+    "ip" : "192.168.1.116",
+    "port" : 9090
+  }, {
+    "ip" : "192.168.1.125",
+    "port" : 9090
+  }, {
+    "ip" : "192.168.1.128",
+    "port" : 9090
+  }, {
+    "ip" : "192.168.1.106",
+    "port" : 9090
+  }, {
+    "ip" : "192.168.1.107",
+    "port" : 9090
+  }, {
+    "ip" : "192.168.1.109",
+    "port" : 9090
+  }, {
+    "ip" : "192.168.1.110",
+    "port" : 9090
+  }, {
+    "ip" : "192.168.1.113",
+    "port" : 9090
+  }, {
+    "ip" : "192.168.1.114",
+    "port" : 9090
+  }, {
+    "ip" : "192.168.1.129",
+    "port" : 9090
+  } ],
+  "updating" : false,
+  "availableOSDList" : [ {
+    "levelNo" : 3,
+    "id" : "51",
+    "type" : "idDisk",
+    "weight" : 0.0,
+    "hiddenWeight" : 0.123,
+    "isHidden" : true,
+    "isDisk" : true,
+    "hashRange" : 0.0,
+    "hiddenHashRange" : 0.023396929866276082,
+    "isFailed" : false,
+    "isOverloaded" : false,
+    "address" : {
+      "ip" : "192.188.1.2",
+      "port" : 4321
+    },
+    "isAlreadySelected" : false,
+    "children" : [ ],
+    "underProcessing" : false
+  }, {
+    "levelNo" : 3,
+    "id" : "47",
+    "type" : "isDisk",
+    "weight" : 0.0,
+    "hiddenWeight" : 0.0111,
+    "isHidden" : true,
+    "isDisk" : true,
+    "hashRange" : 0.0,
+    "hiddenHashRange" : 0.002215082516812676,
+    "isFailed" : true,
+    "isOverloaded" : false,
+    "address" : {
+      "ip" : "1.1.1.1",
+      "port" : 11111
+    },
+    "isAlreadySelected" : false,
+    "children" : [ ],
+    "underProcessing" : false
+  }, {
+    "levelNo" : 3,
+    "id" : "42",
+    "type" : "disk",
+    "weight" : 1.0,
+    "hiddenWeight" : 0.0,
+    "isHidden" : false,
+    "isDisk" : true,
+    "hashRange" : 0.2,
+    "hiddenHashRange" : 0.2,
+    "isFailed" : false,
+    "isOverloaded" : false,
+    "address" : {
+      "ip" : "192.168.1.130",
+      "port" : 9090
+    },
+    "isAlreadySelected" : false,
+    "children" : [ ],
+    "underProcessing" : false
+  }, {
+    "levelNo" : 3,
+    "id" : "111",
+    "type" : "disk",
+    "weight" : 1.0,
+    "hiddenWeight" : 0.0,
+    "isHidden" : false,
+    "isDisk" : true,
+    "hashRange" : 0.25,
+    "hiddenHashRange" : 0.25,
+    "isFailed" : false,
+    "isOverloaded" : false,
+    "address" : {
+      "ip" : "192.168.1.118",
+      "port" : 9090
+    },
+    "isAlreadySelected" : false,
+    "children" : [ ],
+    "underProcessing" : false
+  }, {
+    "levelNo" : 3,
+    "id" : "112",
+    "type" : "disk",
+    "weight" : 1.0,
+    "hiddenWeight" : 0.0,
+    "isHidden" : false,
+    "isDisk" : true,
+    "hashRange" : 0.3333333333333333,
+    "hiddenHashRange" : 0.3333333333333333,
+    "isFailed" : false,
+    "isOverloaded" : false,
+    "address" : {
+      "ip" : "192.168.1.119",
+      "port" : 9090
+    },
+    "isAlreadySelected" : false,
+    "children" : [ ],
+    "underProcessing" : false
+  }, {
+    "levelNo" : 3,
+    "id" : "113",
+    "type" : "disk",
+    "weight" : 1.0,
+    "hiddenWeight" : 0.0,
+    "isHidden" : false,
+    "isDisk" : true,
+    "hashRange" : 0.5,
+    "hiddenHashRange" : 0.5,
+    "isFailed" : false,
+    "isOverloaded" : false,
+    "address" : {
+      "ip" : "192.168.1.124",
+      "port" : 9090
+    },
+    "isAlreadySelected" : false,
+    "children" : [ ],
+    "underProcessing" : false
+  }, {
+    "levelNo" : 3,
+    "id" : "114",
+    "type" : "disk",
+    "weight" : 1.0,
+    "hiddenWeight" : 0.0,
+    "isHidden" : false,
+    "isDisk" : true,
+    "hashRange" : 1.0,
+    "hiddenHashRange" : 1.0,
+    "isFailed" : false,
+    "isOverloaded" : false,
+    "address" : {
+      "ip" : "192.168.1.126",
+      "port" : 9090
+    },
+    "isAlreadySelected" : false,
+    "children" : [ ],
+    "underProcessing" : false
+  }, {
+    "levelNo" : 3,
+    "id" : "121",
+    "type" : "disk",
+    "weight" : 1.0,
+    "hiddenWeight" : 0.0,
+    "isHidden" : false,
+    "isDisk" : true,
+    "hashRange" : 0.25,
+    "hiddenHashRange" : 0.25,
+    "isFailed" : false,
+    "isOverloaded" : false,
+    "address" : {
+      "ip" : "192.168.1.127",
+      "port" : 9090
+    },
+    "isAlreadySelected" : false,
+    "children" : [ ],
+    "underProcessing" : false
+  }, {
+    "levelNo" : 3,
+    "id" : "122",
+    "type" : "disk",
+    "weight" : 1.0,
+    "hiddenWeight" : 0.0,
+    "isHidden" : false,
+    "isDisk" : true,
+    "hashRange" : 0.3333333333333333,
+    "hiddenHashRange" : 0.3333333333333333,
+    "isFailed" : false,
+    "isOverloaded" : false,
+    "address" : {
+      "ip" : "192.168.1.117",
+      "port" : 9090
+    },
+    "isAlreadySelected" : false,
+    "children" : [ ],
+    "underProcessing" : false
+  }, {
+    "levelNo" : 3,
+    "id" : "123",
+    "type" : "disk",
+    "weight" : 1.0,
+    "hiddenWeight" : 0.0,
+    "isHidden" : false,
+    "isDisk" : true,
+    "hashRange" : 0.5,
+    "hiddenHashRange" : 0.5,
+    "isFailed" : false,
+    "isOverloaded" : false,
+    "address" : {
+      "ip" : "192.168.1.108",
+      "port" : 9090
+    },
+    "isAlreadySelected" : false,
+    "children" : [ ],
+    "underProcessing" : false
+  }, {
+    "levelNo" : 3,
+    "id" : "124",
+    "type" : "disk",
+    "weight" : 1.0,
+    "hiddenWeight" : 0.0,
+    "isHidden" : false,
+    "isDisk" : true,
+    "hashRange" : 1.0,
+    "hiddenHashRange" : 1.0,
+    "isFailed" : false,
+    "isOverloaded" : false,
+    "address" : {
+      "ip" : "192.168.1.116",
+      "port" : 9090
+    },
+    "isAlreadySelected" : false,
+    "children" : [ ],
+    "underProcessing" : false
+  }, {
+    "levelNo" : 3,
+    "id" : "131",
+    "type" : "disk",
+    "weight" : 1.0,
+    "hiddenWeight" : 0.0,
+    "isHidden" : false,
+    "isDisk" : true,
+    "hashRange" : 0.25,
+    "hiddenHashRange" : 0.25,
+    "isFailed" : false,
+    "isOverloaded" : false,
+    "address" : {
+      "ip" : "192.168.1.125",
+      "port" : 9090
+    },
+    "isAlreadySelected" : false,
+    "children" : [ ],
+    "underProcessing" : false
+  }, {
+    "levelNo" : 3,
+    "id" : "132",
+    "type" : "disk",
+    "weight" : 1.0,
+    "hiddenWeight" : 0.0,
+    "isHidden" : false,
+    "isDisk" : true,
+    "hashRange" : 0.3333333333333333,
+    "hiddenHashRange" : 0.3333333333333333,
+    "isFailed" : false,
+    "isOverloaded" : false,
+    "address" : {
+      "ip" : "192.168.1.128",
+      "port" : 9090
+    },
+    "isAlreadySelected" : false,
+    "children" : [ ],
+    "underProcessing" : false
+  }, {
+    "levelNo" : 3,
+    "id" : "133",
+    "type" : "disk",
+    "weight" : 1.0,
+    "hiddenWeight" : 0.0,
+    "isHidden" : false,
+    "isDisk" : true,
+    "hashRange" : 0.5,
+    "hiddenHashRange" : 0.5,
+    "isFailed" : false,
+    "isOverloaded" : false,
+    "address" : {
+      "ip" : "192.168.1.106",
+      "port" : 9090
+    },
+    "isAlreadySelected" : false,
+    "children" : [ ],
+    "underProcessing" : false
+  }, {
+    "levelNo" : 3,
+    "id" : "134",
+    "type" : "disk",
+    "weight" : 1.0,
+    "hiddenWeight" : 0.0,
+    "isHidden" : false,
+    "isDisk" : true,
+    "hashRange" : 1.0,
+    "hiddenHashRange" : 1.0,
+    "isFailed" : false,
+    "isOverloaded" : false,
+    "address" : {
+      "ip" : "192.168.1.107",
+      "port" : 9090
+    },
+    "isAlreadySelected" : false,
+    "children" : [ ],
+    "underProcessing" : false
+  }, {
+    "levelNo" : 3,
+    "id" : "141",
+    "type" : "disk",
+    "weight" : 1.0,
+    "hiddenWeight" : 0.0,
+    "isHidden" : false,
+    "isDisk" : true,
+    "hashRange" : 0.2,
+    "hiddenHashRange" : 0.2,
+    "isFailed" : false,
+    "isOverloaded" : false,
+    "address" : {
+      "ip" : "192.168.1.109",
+      "port" : 9090
+    },
+    "isAlreadySelected" : false,
+    "children" : [ ],
+    "underProcessing" : false
+  }, {
+    "levelNo" : 3,
+    "id" : "142",
+    "type" : "disk",
+    "weight" : 1.0,
+    "hiddenWeight" : 0.0,
+    "isHidden" : false,
+    "isDisk" : true,
+    "hashRange" : 0.25,
+    "hiddenHashRange" : 0.25,
+    "isFailed" : false,
+    "isOverloaded" : false,
+    "address" : {
+      "ip" : "192.168.1.110",
+      "port" : 9090
+    },
+    "isAlreadySelected" : false,
+    "children" : [ ],
+    "underProcessing" : false
+  }, {
+    "levelNo" : 3,
+    "id" : "143",
+    "type" : "disk",
+    "weight" : 1.0,
+    "hiddenWeight" : 0.0,
+    "isHidden" : false,
+    "isDisk" : true,
+    "hashRange" : 0.3333333333333333,
+    "hiddenHashRange" : 0.3333333333333333,
+    "isFailed" : false,
+    "isOverloaded" : false,
+    "address" : {
+      "ip" : "192.168.1.113",
+      "port" : 9090
+    },
+    "isAlreadySelected" : false,
+    "children" : [ ],
+    "underProcessing" : false
+  }, {
+    "levelNo" : 3,
+    "id" : "144",
+    "type" : "disk",
+    "weight" : 1.0,
+    "hiddenWeight" : 0.0,
+    "isHidden" : false,
+    "isDisk" : true,
+    "hashRange" : 0.5,
+    "hiddenHashRange" : 0.5,
+    "isFailed" : false,
+    "isOverloaded" : false,
+    "address" : {
+      "ip" : "192.168.1.114",
+      "port" : 9090
+    },
+    "isAlreadySelected" : false,
+    "children" : [ ],
+    "underProcessing" : false
+  }, {
+    "levelNo" : 3,
+    "id" : "145",
+    "type" : "disk",
+    "weight" : 1.0,
+    "hiddenWeight" : 0.0,
+    "isHidden" : false,
+    "isDisk" : true,
+    "hashRange" : 1.0,
+    "hiddenHashRange" : 1.0,
+    "isFailed" : false,
+    "isOverloaded" : false,
+    "address" : {
+      "ip" : "192.168.1.129",
+      "port" : 9090
+    },
+    "isAlreadySelected" : false,
+    "children" : [ ],
+    "underProcessing" : false
+  } ]
+}

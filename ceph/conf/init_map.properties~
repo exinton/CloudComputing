@@ -1,0 +1,7 @@
+level=3
+row=2
+cabinet=5
+disk=50
+IpRange1=row
+IpRange2=cabinet
+IpRange3=disk
