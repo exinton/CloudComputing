@@ -1,20 +1,25 @@
 package wrapper;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
-import net.Address;
 
 @JsonIdentityInfo(
 		  generator = ObjectIdGenerators.PropertyGenerator.class, 
-		  property = "identity")
-public class FakeServer {
+		  property = "identity",scope=FakeServer.class)
+class FakeServer {
 	
-	int size;
+	private int size;
+	public FakeServer next;
+	public FakeServer getPrev() {
+		return prev;
+	}
+
+
+	public void setPrev(FakeServer prev) {
+		this.prev = prev;
+	}
+
 	FakeServer prev;
-	FakeServer next;
 	private WrappedAddress fakeServerAddr;
 	public WrappedAddress getFakeServerAddr() {
 		return fakeServerAddr;
@@ -36,8 +41,19 @@ public class FakeServer {
 		this.updateIdentity();
 	}
 
-	String identity;
-	boolean isHead;
+	private String identity;
+	public String getIdentity() {
+		return identity;
+	}
+
+
+	public void setIdentity(String identity) {
+		this.identity = identity;
+	}
+
+	private boolean isHead;
+
+
 	private boolean isFail;
 	
 	FakeServer(WrappedAddress fakeAddr,WrappedAddress realAddr){
@@ -46,12 +62,50 @@ public class FakeServer {
 		identity=fakeAddr.getIp()+":"+fakeAddr.getPort()+"->"+realAddr.getIp()+":"+realAddr.getPort();
 	}
 	
-	
-	FakeServer(){
-		isHead=true;
+	FakeServer(WrappedAddress realAddr){
+		this.realServerAddr=realAddr;
+		identity=realAddr.getIp()+":"+realAddr.getPort();
 	}
+	FakeServer(){
+		
+	}
+
 	public void updateIdentity() {
-		this.identity = fakeServerAddr.getIp()+":"+fakeServerAddr.getPort()+"->"+realServerAddr.getIp()+":"+realServerAddr.getPort();
+		if(fakeServerAddr==null)
+			this.identity = realServerAddr.getIp()+":"+realServerAddr.getPort();
+		else
+			this.identity = fakeServerAddr.getIp()+":"+fakeServerAddr.getPort()+"->"+realServerAddr.getIp()+":"+realServerAddr.getPort();
+	}
+
+
+	public int getSize() {
+		return size;
+	}
+
+
+	public void setSize(int size) {
+		this.size = size;
+	}
+
+
+
+	public FakeServer getNext() {
+		return next;
+	}
+
+
+	public void setNext(FakeServer next) {
+		this.next = next;
+	}
+
+
+	public boolean isHead() {
+		return isHead;
+	}
+
+
+	public void setHead(boolean isHead) {
+		this.isHead = isHead;
 	}
 
 
@@ -66,3 +120,4 @@ public class FakeServer {
 	
 
 }
+

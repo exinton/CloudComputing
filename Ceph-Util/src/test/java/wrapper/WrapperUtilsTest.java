@@ -85,7 +85,7 @@ public class WrapperUtilsTest {
 		assertEquals(size,list.size());
 	}
 	
-	@Test
+
 	public void testloadFromJSON(){
 		String fileName=System.getenv("CEPH_HOME")+ File.separator+"wrapper.json";
 		File file = new File(fileName);
@@ -95,7 +95,7 @@ public class WrapperUtilsTest {
 		WrapperUtils.rebalanceWrapper(wrapper);
 	}
 	
-	@Test
+
 	public void testrebalanceWrapper(){
 		String fileName=System.getenv("CEPH_HOME")+ File.separator+"wrapper.json";
 		File file = new File(fileName);
@@ -107,7 +107,7 @@ public class WrapperUtilsTest {
 		wrappers.printLayOut();
 	}
 	
-	@Test
+
 	public void testrebalanceWrapperAfterRemoving(){
 		String fileName=System.getenv("CEPH_HOME")+ File.separator+"wrapper.json";
 		File file = new File(fileName);

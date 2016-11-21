@@ -6,28 +6,53 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.Properties;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
-import cephmap.cephmapmonitors.CephGlobalParameter;
 import cephmapnode.CephMap;
 import cephmapnode.CephNode;
+import message.IOMessageConstants;
+import net.Address;
+import net.IOControl;
+import net.MsgType;
+import net.Session;
+import types.MonitorMsgType;
 
 public class WrapperUtils {
 	
-	public static boolean saveToJSON(File file,Object obj){
-		ObjectMapper mapper = new ObjectMapper();	
+	private static Address monitorAddr;
+	private static File jsonFile;
+	static 	ObjectMapper mapper = new ObjectMapper();
+	static{	
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		mapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
 		mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
-        mapper.configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true);
-        mapper.setSerializationInclusion(Include.NON_NULL);
+	    mapper.configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true);
+	    mapper.setSerializationInclusion(Include.NON_NULL);	
+	}
+
+	public static Address getMonitorAddr() {
+		return monitorAddr;
+	}
+
+	public static void  setMonitorAddr(Address monitorAddr) {
+		WrapperUtils.monitorAddr = monitorAddr;
+	}
+
+	public static boolean saveToJSON(File file,Object obj){
 		try {
 			mapper.writeValue(file, obj);
 		} catch (IOException e) {			
@@ -38,15 +63,41 @@ public class WrapperUtils {
 		return true;
 	}
 	
-	public static Wrapper loadFromJSON(File file){
-		ObjectMapper mapper = new ObjectMapper();
+	public static Wrapper loadFromString(String input){
 		Wrapper wrapper=null;
 		try {
-			wrapper = mapper.readValue(file, Wrapper.class);
+			wrapper = mapper.readValue(input, Wrapper.class);
 		} catch (IOException e) {
 			System.out.println("IO exception during deserialization!");
 			e.printStackTrace();
+			System.out.println("reinitialize a wrapper with default setting");
 			return null;
+		}
+        return wrapper;
+	}
+	
+	public static String saveToString(Wrapper wrapper){
+		String res=null;
+		try {
+			res=mapper.writeValueAsString(wrapper);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("serializing wrapper fail");
+			return null;
+		}
+		return res;
+	}
+	
+	public static Wrapper loadFromJSON(File file){
+		Wrapper wrapper=null;
+		try {
+			wrapper=mapper.readValue(file, Wrapper.class);				
+		} catch (IOException e) {
+			System.out.println("IO exception during deserialization!");
+			e.printStackTrace();
+			System.out.println("reinitialize a wrapper with default setting");
+			return WrapperUtils.initWrapper();
 		}
         return wrapper;
 	}
@@ -142,12 +193,12 @@ public class WrapperUtils {
 
 	
 	public static Properties getProperties(String fileName){
-		final String ceph_home = System.getenv("CEPH_HOME");
+		String dir = System.getProperty("user.dir");		
 		Properties prop = new Properties();
 		InputStream input = null;
 		try {
-			input = new FileInputStream(ceph_home + File.separator + "conf" + File.separator + fileName);
-			System.out.println("Reading From properties " + ceph_home + File.separator + "conf" + File.separator + "fileName");
+			input = new FileInputStream(dir + File.separator + "conf" + File.separator + fileName);
+			System.out.println("Reading From properties " + dir + File.separator + "conf" + File.separator + "fileName");
 	        prop.load(input);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -180,13 +231,16 @@ public class WrapperUtils {
 		//System.out.println("real server number is"+wrapper.realServerMap.size());
 		for(LinkedFakeServer linkedserver:wrapper.realServerMap.values()){
 			
-			if(linkedserver.getSize()>averageFakeNodes){			
-				wrapper.fakeServerLists.remove(linkedserver);
+			if(linkedserver.getSize()>averageFakeNodes){	
+				
+				if(!wrapper.fakeServerLists.remove(linkedserver)){
+					throw new NullPointerException();
+				}					
+				
 				//System.out.println("link size is"+linkedserver.getSize());
 				while(linkedserver.getSize()>averageFakeNodes){
 					FakeServer fakeserver = linkedserver.pop();					
 					LinkedFakeServer tmp = wrapper.fakeServerLists.poll();					
-					fakeserver.setRealServerAddr(tmp.realServer);
 					tmp.insertHead(fakeserver);
 					wrapper.fakeServerLists.add(tmp);
 				}
@@ -194,9 +248,106 @@ public class WrapperUtils {
 			}
 			
 		}
-		wrapper.upateEpochVal();
+		wrapper.updateEpochVal();
 		return wrapper;
 		
+	}
+	
+	public static boolean uploadWrapper(Wrapper wrapper){
+		IOControl control = new IOControl(); 
+ 		
+ 		 Session session = new Session(MonitorMsgType.UPDATE_MAP);
+         session.set("epochVal", wrapper.getEpochVal());
+         String outJson=null;
+         Session response=null;
+
+		try {
+            outJson = mapper.writeValueAsString(wrapper); 
+	        session.set("updatedMap", outJson);  
+	        response = control.request(session, monitorAddr);
+			
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			return false;
+		}
+		String res= response.getString(IOMessageConstants.UPDATE_MAP_RESPONSE_MESSAGE);
+		if(res.equals("updated")){
+            saveToJSON(jsonFile,wrapper);
+            return true;
+		}		
+		else 
+			return false;
+
+	}
+	
+	public static Wrapper initWrapper(){
+		
+		List<WrappedAddress> realServerLists=WrapperUtils.getPhysicalNodes();	
+		PriorityQueue<LinkedFakeServer> fakeServerLists=new PriorityQueue<LinkedFakeServer>();
+		HashMap<String,LinkedFakeServer>  realServerMap= new HashMap<>();
+		for(WrappedAddress addr:realServerLists){
+			LinkedFakeServer tmp=new LinkedFakeServer(addr);	
+			fakeServerLists.add(tmp);
+			realServerMap.put(addr.getServerAddr(),tmp);
+		}			
+		CephMap cephMap=WrapperUtils.getCephMap();		
+		SortedMap<String,FakeServer> map = new TreeMap<>();
+		Wrapper wrapper =new Wrapper(map,fakeServerLists,cephMap,realServerMap);
+		wrapper.initWrapper();
+		return wrapper;
+
+	}
+	
+	
+    public static Wrapper downloadWrapper() {
+    	IOControl control = new IOControl(); 
+    	Wrapper wrapper=null; 
+    	long version=-1;
+ 		if(jsonFile.isFile()){
+			 wrapper= WrapperUtils.loadFromJSON(jsonFile);
+			 version=wrapper.getEpochVal();
+		 }
+			 
+    	//only one monitor in addr
+        Session session = new Session(MonitorMsgType.CACHE_VALID);
+        session.set("epochVal", version);
+
+                  //     System.out.println("here   "+a);
+                  //      a++;
+                        Session response = null;
+						try {
+							response = control.request(session, monitorAddr);
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+                        if (response.getType() == MonitorMsgType.CACHE_VALID) {
+                            if (!response.getBoolean("isValid")) {
+                               System.out.println("the current wrapper version is older than the monitor's,update it!");
+                               String jsonValue = response.getString("latestMap");
+       
+                               try {
+								wrapper = mapper.readValue(jsonValue, Wrapper.class);
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+                               WrapperUtils.saveToJSON(jsonFile, wrapper);
+                            }
+                        }
+                        System.out.println("the current wrapper version is the same with monitor's,no update!");
+
+        return wrapper;
+
+    }
+
+	public static File getJsonFile() {
+		return jsonFile;
+	}
+
+	public static void setJsonFile(File jsonFile) {
+		WrapperUtils.jsonFile = jsonFile;
 	}
 	
 

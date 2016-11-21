@@ -18,8 +18,9 @@ import cephmapnode.CephMap;
 import cephmapnode.CephNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import types.MonitorMsgType;
-
-
+import wrapper.Wrapper;
+import wrapper.WrapperUtils;
+import net.Address;
 import net.IOControl;
 import net.Session;
 import org.ini4j.Wini;
@@ -31,9 +32,16 @@ import java.util.Properties;
 @SuppressWarnings("serial")
 public class Manager implements java.io.Serializable {
     
-    static CephMap cm;
+    static private Wrapper wrapper;
     
-    static void callMON(ArrayList<CephNode> exchange_info, MonitorMsgType msgType) {
+    public synchronized static void setWrapper(Wrapper wrapper) {
+		Manager.wrapper = wrapper;
+	}
+    public  static Wrapper getWrapper() {
+ 		return wrapper;
+ 	}
+
+	static void callMON(ArrayList<CephNode> exchange_info, MonitorMsgType msgType) {
         try {
         	
             final  String CEPH_HOME = System.getenv("CEPH_HOME");
@@ -80,130 +88,32 @@ public class Manager implements java.io.Serializable {
 //        simulateMON(modify_path, msgType);
     }
 
-    /*
-    this is post order traversal of CephMap and updating the weights
-    */
-    static NodeWeight updateWeights(CephNode n){
-        if(n.getIsDisk()){
-            return (new NodeWeight(n.getWeight(), 
-                                    n.getHiddenWeight()));
-                    
-        } else {
-            NodeWeight nw = new NodeWeight(0, 0);
-            for(CephNode i: n.getChildren()){
-                NodeWeight childWeight = updateWeights(i);
-                nw.weight += childWeight.weight;
-                nw.hiddenWeight += childWeight.hiddenWeight;
-            }
-            
-            n.setWeight(nw.weight);
-            n.setHiddenWeight(nw.hiddenWeight);
-
-            return nw;
-        }
-        
-    }
     
-    static class NodeWeight{
-        double weight;
-        double hiddenWeight;
-        
-        NodeWeight(){
-            
-        }
-        
-        NodeWeight(double weight, double hiddenWeight){
-            this.weight = weight;
-            this.hiddenWeight = hiddenWeight;
-        }
-    }
     
-    static void add() {
+    static synchronized boolean add() {
         Scanner sc = new Scanner(System.in);
         System.out.println("in adding a new node");
-
-        System.out.println("Specify path from root for adding new node");
-        ArrayList<CephNode> add_path = new ArrayList<>();
-	// EXISTING internal: id
-        // NEW internal: id:0; type; isDisk
-        // NEW leaf: id:0; weight; type; ip; port; drive_path; isDisk
-
-        boolean keepAdding = true;
-        while (keepAdding) {
-            CephNode nd = new CephNode();
             System.out.println();
-            System.out.print("node id(0 for new): ");
+            System.out.print("new physical node ip:port: ");
             String id = sc.next();
-            nd.setId(id);
-            if (id.equals("0")) {
-                System.out.print("disk node(0|1)? ");
-                int inp = sc.nextInt();
-                if (inp == 0) {
-                    nd.setIsDisk(false);
+            getWrapper().addRealServer(id);
+            WrapperUtils.rebalanceWrapper(wrapper);
+            System.out.println("adding physical node and rebalance is done!");
+            return WrapperUtils.uploadWrapper(wrapper);	//update wrapper to monitor
 
-                    System.out.println("Enter values for below parameters:");
-                    System.out.print("type: ");
-                    String type = sc.next();
-
-                    nd.setType(type);
-                } else {
-                    nd.setIsDisk(true);
-
-                    System.out.println("Enter values for below parameters:");
-                    System.out.print("weight: ");
-                    double weight = sc.nextDouble();
-                    System.out.print("type: ");
-                    String type = sc.next();
-                    System.out.print("ip: ");
-                    String ip = sc.next();
-//                    int port = 0;
-                    System.out.print("port: ");
-                    int port = sc.nextInt();
-//                    System.out.print("drive path: ");
-//                    String drive_path = sc.next();
-
-                    nd.setWeight(weight);
-                    nd.setType(type);
-                    nd.setAddress(ip, port);
-//                    nd.setDriveInfo(drive_path);
-                    
-                    keepAdding = false;
-                }
-            }
-
-            add_path.add(nd);
-
-            if(id.equals("0") && keepAdding){
-                System.out.print("add another node in the path?(0|1): ");
-                int continueAdding = sc.nextInt();
-                if (continueAdding == 0) {
-                    keepAdding = false;
-                }
-            }
-        }
-
-//        System.out.println(add_path);
-        callMON(add_path, MonitorMsgType.MODIFY_MAP_ADD);
-//        sc.close();
     }
 
-    static void delete() {
+    static boolean delete() {
         System.out.println("in deleting a node");
 
-        System.out.print("Specify the ID of the node to be deleted: ");
-        ArrayList<CephNode> delete_path = new ArrayList<>();
-        CephNode nd = new CephNode();
+        System.out.print("Specify the Ip and port of the node to be deleted: ");
         Scanner sc = new Scanner(System.in);
-        String id = sc.next();
+        String rawip = sc.next();        
+        getWrapper().removeRealServer(rawip);
+        WrapperUtils.rebalanceWrapper(getWrapper());
+        System.out.println("removing physical node and rebalance is done!");
+        return WrapperUtils.uploadWrapper(wrapper);	//update wrapper to monitor
 
-        nd.setId(id);
-
-        delete_path.add(nd);
-
-        System.out.println();
-        callMON(delete_path, MonitorMsgType.MODIFY_MAP_REMOVE);
-        
-//        sc.close();
     }
     
     static void initiateLoadBalancing(){
@@ -223,60 +133,39 @@ public class Manager implements java.io.Serializable {
         System.out.println();
         callMON(modify_path, MonitorMsgType.INITIATE_LOAD_BALANCING);
     }
-
-    static CephMap getClusterMapFromMON() {
-        CephMap cm = null;
-        try{
-            final  String CEPH_HOME = System.getenv("CEPH_HOME");
-            
-            if(CEPH_HOME == null){
-                throw new Exception("CEPH_HOME not set");
-            }
-            
-            final String MANAGER_PROPERTIES_FILE = CEPH_HOME+File.separator+"conf"+File.separator+"manager.properties";
-//            System.out.println(MANAGER_PROPERTIES_FILE);
-            Properties prop = new Properties();
-            InputStream input = new FileInputStream(MANAGER_PROPERTIES_FILE);
-            prop.load(input);
-            
-            IOControl control = new IOControl();
-            
-            String monitor_addresses = prop.getProperty("CEPH_MONITORS");
-            String[] addressList = monitor_addresses.split(","); //return all monitors 
-            for (int i = 0; i < addressList.length; i++) {
-                String[] tokens = addressList[i].split(":");
-                if (tokens.length == 2) {	//if two monitors
-                    try {
-                        Session updateSession = new Session(MonitorMsgType.CACHE_GET);
-//                        System.out.println(tokens[0]+" "+tokens[1]);
-                        Session updateResponse = control.request(updateSession, tokens[0], Integer.parseInt(tokens[1]));
-//                        System.out.println(tokens[0]+" "+tokens[1]);
-                        if (updateResponse.getType() == MonitorMsgType.CACHE_VALID) {
-                            String jsonValue = updateResponse.getString("updatedMap");
-                            ObjectMapper mapper = new ObjectMapper();
-                            cm = mapper.readValue(jsonValue, CephMap.class);
-//                            System.out.println(cm);
-//                            System.out.println(cm.getNode().getId());
-                        }
-                    } catch (Exception e) {
-                        System.out.println("Monitor " + addressList[i] + " not responding. Trying next Monitor");
-                        continue;
-                    }
-                }
-            }
-        } catch(Exception e){
-            e.printStackTrace();
-        }
-        
-        return cm;
-    }
+    
+    static boolean initWrapper(){
+    	 Properties prop = new Properties();
+    	 String dir = System.getProperty("user.dir");
+ 		 String confFile=dir+File.separator+"conf"+File.separator+"manager.conf";
+         InputStream input = null;
+         try {
+ 			input = new FileInputStream(confFile);
+ 			prop.load(input);
+ 		} catch (IOException e) {
+ 			// TODO Auto-generated catch block
+ 			e.printStackTrace();
+ 			return false;
+ 		}     
+         String rawIP = prop.getProperty("address");       
+ 		String[] ip=rawIP.split(":");
+ 		Address monitorAddr= new Address(ip[0],Integer.valueOf(ip[1]));      
+ 		String fileName=dir+File.separator+"wrapper.json";
+ 		File file = new File(fileName);
+ 		WrapperUtils.setMonitorAddr(monitorAddr);	
+ 		WrapperUtils.setJsonFile(file);
+ 		setWrapper(WrapperUtils.downloadWrapper());
+    	return true;
+     }
+    
 
     static void operations() {
         boolean acceptInput = true;
+        initWrapper();
 
-        int option;
         Scanner sc = new Scanner(System.in);
         while (acceptInput) {
+            int option;
             System.out.println();
             System.out.println("Choose any operation to perform:");
             System.out.println("1. add a node");
@@ -291,184 +180,28 @@ public class Manager implements java.io.Serializable {
 
             switch (option) {
                 case 1:
-                    add();
+                    if(add())
+                    	System.out.println("upload to monitor successfully!");
+                    else
+                    	System.out.println("upload to monitor failed!");
                     break;
                 case 2:
                     delete();
                     break;
-//                case 3:
-//                    initiateLoadBalancing();
-//                    break;
-                case 3:
-                    CephMap cm = getClusterMapFromMON();
-//                    cm.displayClusterMap();
-                    cm.printMap();
+                case 3:                	
+                    getWrapper().printLayOut();
                     break;
                 default:
                     acceptInput = false;
             }
         }
+        sc.close();
     }
 
-    public static CephMap sampleClusterMap() {
-        if(cm != null){
-            return cm;
-        }
-        
-        cm = new CephMap();
-
-        CephNode n9 = new CephNode();
-        n9.setId("9");
-        n9.setType("disk");
-        n9.setWeight(1);
-        n9.setAddress("192.168.0.9", 9);
-        n9.setDriveInfo("/usr/disk");
-        n9.setIsDisk(true);
-
-        CephNode n10 = new CephNode();
-        n10.setId("10");
-        n10.setType("disk");
-        n10.setWeight(1);
-        n10.setAddress("192.168.0.10", 10);
-        n10.setDriveInfo("/usr/disk");
-        n10.setIsDisk(true);
-
-        CephNode n11 = new CephNode();
-        n11.setId("11");
-        n11.setType("disk");
-        n11.setWeight(1);
-        n11.setAddress("192.168.0.11", 11);
-        n11.setDriveInfo("/usr/disk");
-        n11.setIsDisk(true);
-
-        CephNode n12 = new CephNode();
-        n12.setId("12");
-        n12.setType("disk");
-        n12.setWeight(1);
-        n12.setAddress("192.168.0.12", 12);
-        n12.setDriveInfo("/usr/disk");
-        n12.setIsDisk(true);
-
-        CephNode n13 = new CephNode();
-        n13.setId("13");
-        n13.setType("disk");
-        n13.setWeight(1);
-        n13.setAddress("192.168.0.13", 13);
-        n13.setDriveInfo("/usr/disk");
-        n13.setIsDisk(true);
-
-        CephNode n14 = new CephNode();
-        n14.setId("14");
-        n14.setType("disk");
-        n14.setWeight(1);
-        n14.setAddress("192.168.0.14", 14);
-        n14.setDriveInfo("/usr/disk");
-        n14.setIsDisk(true);
-
-        CephNode n15 = new CephNode();
-        n15.setId("15");
-        n15.setType("disk");
-        n15.setWeight(1);
-        n15.setAddress("192.168.0.15", 15);
-        n15.setDriveInfo("/usr/disk");
-        n15.setIsDisk(true);
-
-        CephNode n16 = new CephNode();
-        n16.setId("16");
-        n16.setType("disk");
-        n16.setWeight(1);
-        n16.setAddress("192.168.0.16", 16);
-        n16.setDriveInfo("/usr/disk");
-        n16.setIsDisk(true);
-
-        CephNode n5 = new CephNode();
-        n5.setId("5");
-        n5.setType("column");
-        n5.setIsDisk(false);
-        ArrayList<CephNode> al = new ArrayList<CephNode>();
-        al.add(n9);
-        al.add(n10);
-        n5.setChildren(al);
-
-        CephNode n6 = new CephNode();
-        n6.setId("6");
-        n6.setType("column");
-        n6.setIsDisk(false);
-        al = new ArrayList<CephNode>();
-        al.add(n11);
-        al.add(n12);
-        n6.setChildren(al);
-
-        CephNode n7 = new CephNode();
-        n7.setId("7");
-        n7.setType("column");
-        n7.setIsDisk(false);
-        al = new ArrayList<CephNode>();
-        al.add(n13);
-        al.add(n14);
-        n7.setChildren(al);
-
-        CephNode n8 = new CephNode();
-        n8.setId("8");
-        n8.setType("column");
-        n8.setIsDisk(false);
-        al = new ArrayList<CephNode>();
-        al.add(n15);
-        al.add(n16);
-        n8.setChildren(al);
-
-        CephNode n2 = new CephNode();
-        n2.setId("2");
-        n2.setType("row");
-        n2.setIsDisk(false);
-        al = new ArrayList<CephNode>();
-        al.add(n5);
-        al.add(n6);
-        n2.setChildren(al);
-
-        CephNode n3 = new CephNode();
-        n3.setId("3");
-        n3.setType("row");
-        n3.setIsDisk(false);
-        al = new ArrayList<CephNode>();
-        al.add(n7);
-        n3.setChildren(al);
-
-        CephNode n4 = new CephNode();
-        n4.setId("4");
-        n4.setType("row");
-        n4.setIsDisk(false);
-        al = new ArrayList<CephNode>();
-        al.add(n8);
-        n4.setChildren(al);
-
-        CephNode n1 = new CephNode();
-        n1.setId("1");
-        n1.setType("dc");
-        n1.setIsDisk(false);
-        al = new ArrayList<CephNode>();
-        al.add(n2);
-        al.add(n3);
-        al.add(n4);
-        n1.setChildren(al);
-
-        cm.getNode().addChild(n1);
-        return cm;
-    }
+  
 
     public static void main(String[] args) {
-    	/**String[] command = {
-                "/bin/bash",
-                "-c",
-                "source /etc/profile"
-        };
-    	try {
-			Runtime.getRuntime().exec(command);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	*/
+
         System.out.println("Program started...");
         operations();
 

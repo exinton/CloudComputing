@@ -1,5 +1,5 @@
 {
-  "epochVal" : 1479354962461,
+  "epochVal" : 1479624335851,
   "updating" : false,
   "map" : {
     "1.1.1.10:1000" : {
@@ -9795,7 +9795,7 @@
     }
   } ],
   "cephMap" : {
-    "epochVal" : 1479354962459,
+    "epochVal" : 1479624335850,
     "node" : {
       "levelNo" : 0,
       "id" : "0",

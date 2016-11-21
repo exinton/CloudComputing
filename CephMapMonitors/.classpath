@@ -34,5 +34,8 @@
 	<classpathentry kind="lib" path="/ceph-client/dependencies/jackson-databind-2.6.2.jar"/>
 	<classpathentry kind="lib" path="/ceph-client/dependencies/json-20141113.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/manager"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ceph-client"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/net-control"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/osd"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
