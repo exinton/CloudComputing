@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd ../../CephClient
+java -cp "lib/*" newClient.Client

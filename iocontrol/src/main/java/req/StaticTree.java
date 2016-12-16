@@ -178,7 +178,7 @@ public class StaticTree{
 	}
 
 	protected String randName(){
-		return String.format("%8X%8X",uniform.nextInt(),uniform.nextInt());
+		return String.format("%08X%08X",uniform.nextInt(),uniform.nextInt());
 	}
 
 	protected class RandTreeNode{

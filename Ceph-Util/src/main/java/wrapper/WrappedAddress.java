@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import net.Address;
-class WrappedAddress extends Address implements Comparable<WrappedAddress>{
+public class WrappedAddress extends Address implements Comparable<WrappedAddress>{
 	private static final long serialVersionUID = 1L;
 	private String serverAddr;
 	private Address addr;
@@ -58,6 +58,7 @@ class WrappedAddress extends Address implements Comparable<WrappedAddress>{
 		else
 			return false;
 	}
+
 	
 	
 }

@@ -134,7 +134,7 @@ public class DynamicTree extends StaticTree{
 		DynamicRandTreeNode child=isDir ? parent.createDir(index) : parent.createFile(index);
 		Request r=new Request(isDir ? Request.ReqType.CREATE_DIR : Request.ReqType.CREATE_FILE,child.toString());
 		r.next=new Request(Request.ReqType.LS,parent.toString());
-		if(!isDir) r.end=0;
+		if(!isDir) r.end=uniform.nextInt(10240);
 		return r;
 	}
 

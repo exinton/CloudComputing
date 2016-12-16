@@ -14,6 +14,8 @@ import java.util.Queue;
 
 import crush.FileListInfo;
 import types.FileBackup;
+import wrapper.VirtualServer;
+import wrapper.Wrapper;
 import net.Address;
 import net.IOControl;
 import net.Session;
@@ -109,6 +111,10 @@ public class CephMap {
      printMap(this.getNode(),0);
     }
     
+    public void printMap(Wrapper wrapper){
+        printMap(this.getNode(),0,wrapper);
+    }
+    
     public void printMap(CephNode node , int level){
     
         if(node == null)
@@ -138,6 +144,42 @@ public class CephMap {
               }
     }
 
+    public void printMap(CephNode node , int level,Wrapper wrapper){
+        
+        if(node == null)
+                  return;
+
+             for(int i=0; i < level ; i++)
+                   System.out.print("| ");
+              System.out.print(node.getId()+ " : " );
+              if(node.getIsDisk()) {
+                  System.out.print( "ip:" + node.getAddress().getIp());
+                  System.out.print(" overload:" + node.getIsOverloaded());
+                  System.out.print(" failed:" + node.getIsFailed());
+                  System.out.print("  --->  ");
+                  VirtualServer server =wrapper.getMap().get(node.getAddress().getIp()+":"+node.getAddress().getPort());
+                  System.out.print(server.getRealServerAddr().getIp()+":"+server.getRealServerAddr().getPort());
+                  if(server.isFail())
+                	  System.out.print(" failed ");
+                  if(server.isOverload())
+                	  System.out.print(" overloaded ");
+                	  
+              }
+              System.out.println();
+              if(node.getChildren() !=null) {
+                  
+                  if(node.getId() == null)
+                      System.out.print( node.getId());
+                  else {
+                  
+                      for (CephNode mynode : node.getChildren()) {
+                          printMap(mynode,level+1,wrapper);
+                      }
+                      
+                  }
+                      
+              }
+    }
     /**
      * @return the updating
      */

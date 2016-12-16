@@ -10,20 +10,15 @@ package manager;
  * @author vivek
  */
 import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
-
-import cephmapnode.CephMap;
-import cephmapnode.CephNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import types.MonitorMsgType;
 import wrapper.Wrapper;
+import wrapper.WrapperHolder;
 import wrapper.WrapperUtils;
 import net.Address;
 import net.IOControl;
 import net.Session;
-import org.ini4j.Wini;
+import types.MonitorMsgType;
+import types.WrapperMsgType;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -32,63 +27,17 @@ import java.util.Properties;
 @SuppressWarnings("serial")
 public class Manager implements java.io.Serializable {
     
-    static private Wrapper wrapper;
+    static private WrapperHolder wrapperHolder= new WrapperHolder();
     
     public synchronized static void setWrapper(Wrapper wrapper) {
-		Manager.wrapper = wrapper;
+    	wrapper.initPriorityQueue();
+    	wrapperHolder.setWrapper(wrapper);
 	}
     public  static Wrapper getWrapper() {
- 		return wrapper;
+ 		return wrapperHolder.getWrapper();
  	}
 
-	static void callMON(ArrayList<CephNode> exchange_info, MonitorMsgType msgType) {
-        try {
-        	
-            final  String CEPH_HOME = System.getenv("CEPH_HOME");
-            
-            if(CEPH_HOME == null){
-                throw new Exception("CEPH_HOME not set");
-            }
-            
-            final String MANAGER_PROPERTIES_FILE = CEPH_HOME+File.separator+"conf"+File.separator+"manager.properties";
-            Properties prop = new Properties();
-            InputStream input = new FileInputStream(MANAGER_PROPERTIES_FILE);
-            prop.load(input);
-            
-            String serverIP;
-            int serverPort;
-            
-            IOControl control = new IOControl();
-            Session session = new Session(msgType);
-            session.set("exchange_info", exchange_info);
-            
-            String monitor_addresses = prop.getProperty("CEPH_MONITORS");
-            
-            String[] addressList = monitor_addresses.split(",");
-            for (int i = 0; i < addressList.length; i++) {
-                String[] tokens = addressList[i].split(":");
-                if (tokens.length == 2) {
-                    try {
-                        serverIP = tokens[0];
-                        serverPort = Integer.parseInt(tokens[1]);
-                        
-                        Session ping = control.request(session,serverIP,serverPort);
-                        String message = ping.getString("message");
-                        System.out.println(message);
-                        
-                    } catch (Exception e) {
-                        System.out.println("Monitor " + addressList[i] + " not responding. Trying next Monitor");
-                        continue;
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-//        simulateMON(modify_path, msgType);
-    }
 
-    
     
     static synchronized boolean add() {
         Scanner sc = new Scanner(System.in);
@@ -97,11 +46,37 @@ public class Manager implements java.io.Serializable {
             System.out.print("new physical node ip:port: ");
             String id = sc.next();
             getWrapper().addRealServer(id);
-            WrapperUtils.rebalanceWrapper(wrapper);
-            System.out.println("adding physical node and rebalance is done!");
-            return WrapperUtils.uploadWrapper(wrapper);	//update wrapper to monitor
+            WrapperUtils.rebalanceWrapperByVolume(wrapperHolder.getWrapper());
+            System.out.println("adding physical node and rebalance is done! current version"+wrapperHolder.getWrapper().getEpochVal());
+            return WrapperUtils.uploadWrapper(wrapperHolder.getWrapper());	//update wrapper to monitor
 
     }
+    
+    static synchronized boolean immediateAdd(){
+    	if(add() && multicast())
+    		return true;
+    	return false;
+    }
+    
+    static synchronized boolean immediateDelete(){
+    	if(delete() && multicast())
+    		return true;
+    	return false;
+    }
+    
+    static boolean multicast(){
+    	IOControl control = new IOControl(); 
+ 		Session session = new Session(WrapperMsgType.MULTI_CAST);
+ 		try {
+			control.send(session,WrapperUtils.getMonitorAddr() );
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}   	
+    	return true;
+    }
+    
 
     static boolean delete() {
         System.out.println("in deleting a node");
@@ -110,29 +85,12 @@ public class Manager implements java.io.Serializable {
         Scanner sc = new Scanner(System.in);
         String rawip = sc.next();        
         getWrapper().removeRealServer(rawip);
-        WrapperUtils.rebalanceWrapper(getWrapper());
+        WrapperUtils.rebalanceWrapperByVolume(getWrapper());
         System.out.println("removing physical node and rebalance is done!");
-        return WrapperUtils.uploadWrapper(wrapper);	//update wrapper to monitor
+        return WrapperUtils.uploadWrapper(wrapperHolder.getWrapper());	//update wrapper to monitor
 
     }
     
-    static void initiateLoadBalancing(){
-        System.out.println("in initiate load balancing by the manager");
-        
-        ArrayList<CephNode> modify_path = new ArrayList<>();
-        /*
-        System.out.print("Specify the ID of the overloaded node: ");
-        CephNode nd = new CephNode();
-        
-        Scanner sc = new Scanner(System.in);
-        String id = sc.next();
-        nd.setId(id);
-        modify_path.add(nd);
-        */
-
-        System.out.println();
-        callMON(modify_path, MonitorMsgType.INITIATE_LOAD_BALANCING);
-    }
     
     static boolean initWrapper(){
     	 Properties prop = new Properties();
@@ -173,7 +131,17 @@ public class Manager implements java.io.Serializable {
 //            System.out.println("3. initiate load balancing");
             System.out.println("3. display cluster map");
             System.out.println("4. exit");
-
+            System.out.println("5. print cephmap");
+            System.out.println("6. print cephmap to physical mapping");
+            System.out.println("7. immediate add node");
+            System.out.println("8. immediate delete node");
+            System.out.println("11. rebalance by volume");
+            System.out.println("12. redistributed virtual nodes from physical nodes by load");
+            System.out.println("13. immediate upload wrapper to monitor");
+            System.out.println("14. set node fail");
+            System.out.println("15. set node not fail");
+            System.out.println("16. set node overload");
+            System.out.println("17. set node not overload");   
             System.out.println();
             System.out.print("option: ");
             option = sc.nextInt();
@@ -189,8 +157,50 @@ public class Manager implements java.io.Serializable {
                     delete();
                     break;
                 case 3:                	
-                    getWrapper().printLayOut();
+                    getWrapper().printWrapperLayOut();
                     break;
+                case 5:
+                	getWrapper().printCephMapLayOut();
+                	break;
+                case 6:
+                	getWrapper().printCephMapLayOut(wrapperHolder.getWrapper());
+                	break;
+                case 7:
+                	if(immediateAdd())
+                		System.out.println("immediate added node");
+                	break;
+                case 8:
+                	if(immediateDelete())
+                		System.out.println("immediate delete node");
+                	break;        
+                case 12:
+                	if(redistributeVirtualNodes());
+                	System.out.println("wrapper rebalance by volume done");
+                	break;
+                case 11:
+                	if(rebalanceByVolume());
+                	System.out.println("redistributed virtual nodes from physical nodes by load");
+                	break;
+                case 13:
+                	if(WrapperUtils.uploadWrapper(wrapperHolder.getWrapper()))
+                		System.out.println("latest wrapper uploaded to monitor");
+                	break;
+                case 14:
+                	if(setFailNode());
+                	System.out.println("set physical node fail");
+                	break;
+                case 15:
+                	if(setNotFailNode());
+                	System.out.println("set physical node not fail");
+                	break;
+                case 16:
+                	if(setOverLoadNode());
+                	System.out.println("set physical node overload");
+                	break;
+                case 17:
+                	if(setNodeNotOverLoad());
+                	System.out.println("set physical node not overload");
+                	break;
                 default:
                     acceptInput = false;
             }
@@ -198,9 +208,64 @@ public class Manager implements java.io.Serializable {
         sc.close();
     }
 
-  
 
-    public static void main(String[] args) {
+	private static boolean setOverLoadNode() {
+		Scanner sc = new Scanner(System.in);
+        System.out.println("set osd node overload");
+        System.out.println();
+        System.out.print("overloaded physical node ip:port");
+        String id = sc.nextLine();
+        return getWrapper().setFakeServerListOverLoad(id);    
+	}
+	private static boolean setFailNode() {
+    	Scanner sc = new Scanner(System.in);
+        System.out.println("set osd node fail");
+        System.out.println();
+        System.out.print("failed physical node ip:port");
+        String id = sc.nextLine();
+        return getWrapper().setFakeServerListFail(id);        
+	}
+	
+	private static boolean setNotFailNode() {
+    	Scanner sc = new Scanner(System.in);
+        System.out.println("set osd node fail");
+        System.out.println();
+        System.out.print("failed physical node ip:port");
+        String id = sc.nextLine();
+        return getWrapper().setFakeServerListNotFail(id);
+	}
+    
+    private static boolean setNodeNotOverLoad() {
+    	Scanner sc = new Scanner(System.in);
+        System.out.println("set osd node OK");
+        System.out.println();
+        System.out.print("back to normal physical node ip:port + load ");
+        String id = sc.nextLine();
+        return getWrapper().setFakeServerListNotOverLoad(id);
+	}
+    
+	private static boolean rebalanceByVolume() {
+		if(!WrapperUtils.rebalanceWrapperByVolume(getWrapper()))
+			return false;
+		else
+			return true;
+	}
+	
+	
+	private static boolean redistributeVirtualNodes() {
+		Scanner sc = new Scanner(System.in);
+        System.out.println("move n nodes from the overloaded server");
+        System.out.println();
+        System.out.print(" overloaded node rawip numberofvirtualnodes to be removed ");
+        String id = sc.nextLine();		
+		String[] input = id.split("\\s+");
+		return WrapperUtils.rebalanceWrapperByLoad(input[0], getWrapper(),Integer.valueOf(input[1]));
+	}
+	
+    
+    
+    
+	public static void main(String[] args) {
 
         System.out.println("Program started...");
         operations();

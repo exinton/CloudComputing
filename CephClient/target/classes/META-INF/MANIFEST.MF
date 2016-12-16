@@ -1,5 +1,6 @@
 Manifest-Version: 1.0
 Built-By: tongxin
 Build-Jdk: 1.8.0_91
+Main-Class: /ceph-client/src/main/java/newClient/Client.Main
 Created-By: Maven Integration for Eclipse
 

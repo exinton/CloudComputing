@@ -10,6 +10,5 @@ cephmap/loadbalance/RunLoadBalancer.class
 org/iocontrol/GenerateInitMap.class
 org/iocontrol/HeartBeat.class
 org/iocontrol/HeartBeatScheduler.class
-cephMonitor/cephMonitor$ModifyStatus.class
 org/iocontrol/Monitor$MonitorServer.class
 cephmap/cephmapmonitors/CephGlobalParameter.class

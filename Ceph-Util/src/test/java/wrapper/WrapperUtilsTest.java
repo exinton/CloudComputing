@@ -90,40 +90,13 @@ public class WrapperUtilsTest {
 		String fileName=System.getenv("CEPH_HOME")+ File.separator+"wrapper.json";
 		File file = new File(fileName);
 		Wrapper wrapper = WrapperUtils.loadFromJSON(file);
-		assertEquals(wrapper.map.size()>0,true);
-		wrapper.printLayOut();
-		WrapperUtils.rebalanceWrapper(wrapper);
+		assertEquals(wrapper.getMap().size()>0,true);
+		wrapper.printWrapperLayOut();
+		WrapperUtils.rebalanceWrapperByVolume(wrapper);
 	}
 	
 
-	public void testrebalanceWrapper(){
-		String fileName=System.getenv("CEPH_HOME")+ File.separator+"wrapper.json";
-		File file = new File(fileName);
-		Wrapper wrapper = WrapperUtils.loadFromJSON(file);
-		wrapper.addRealServer(new WrappedAddress("10.10.10.100",9567));
-		System.out.println("rebalance begin!");
-		Wrapper wrappers = WrapperUtils.rebalanceWrapper(wrapper);
-		WrapperUtils.saveToJSON(file, wrappers);
-		wrappers.printLayOut();
-	}
+
+
 	
-
-	public void testrebalanceWrapperAfterRemoving(){
-		String fileName=System.getenv("CEPH_HOME")+ File.separator+"wrapper.json";
-		File file = new File(fileName);
-		Wrapper wrapper = WrapperUtils.loadFromJSON(file);
-		wrapper.addRealServer(new WrappedAddress("10.10.10.100",9567));
-		System.out.println("before removing, rebalance begin!");
-		Wrapper wrappers = WrapperUtils.rebalanceWrapper(wrapper);
-		wrappers.printLayOut();
-		if(!wrappers.removeRealServer("10.10.10.100", 9567)){
-			System.out.println("unable to remove");
-			return;
-		}	
-		wrappers=WrapperUtils.rebalanceWrapper(wrappers);
-		System.out.println("after removing, rebalance begin!");
-		wrappers.printLayOut();
-		WrapperUtils.saveToJSON(file, wrappers);
-	}
-
 }

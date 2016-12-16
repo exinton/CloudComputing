@@ -19,9 +19,9 @@ public class CrushUtil {
     
     public static ArrayList<CrushLevel> setCrushProperty (String CephHome) {
      //Read the propery file inside
-        final  String CEPH_HOME = System.getenv("CEPH_HOME");
+    	String dir = System.getProperty("user.dir");
             
-	final String CRUSH_PROPERTIES_FILE = CEPH_HOME+File.separator+"conf"+File.separator+"crushmap.properties";
+	final String CRUSH_PROPERTIES_FILE = dir+File.separator+"conf"+File.separator+"crushmap.properties";
         Properties prop = new Properties();
 	InputStream input = null;
 

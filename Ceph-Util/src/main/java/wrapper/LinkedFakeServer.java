@@ -1,5 +1,7 @@
 package wrapper;
 
+import java.util.Comparator;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -7,31 +9,57 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 property="realServerTag",scope=LinkedFakeServer.class)
 class LinkedFakeServer implements Comparable<LinkedFakeServer> {
 	
-	public FakeServer head;
-	private int size;
+	public VirtualServer head;
+	private int volumeCapacity;
+	private int loadCapacity;
 	private WrappedAddress realServer;
 	private String realServerTag;
+	private boolean isFail;
+	private boolean isOverLoad;
 
 
+	public boolean isFail() {
+		return isFail;
+	}
+	public void setFail(boolean isFail) {
+		this.isFail = isFail;
+		VirtualServer server = head.next;
+		while(server!=null){
+			server.setFail(isFail);
+			server=server.next;
+		}
+			
+	}
+	public boolean isOverLoad() {
+		return isOverLoad;
+	}
+	public void setOverLoad(boolean isOverLoad) {
+		this.isOverLoad = isOverLoad;
+		VirtualServer server = head.next;
+		while(server!=null){
+			server.setOverload(isOverLoad);
+			server=server.next;
+		}
+	}
 	public void setSize(int size) {
-		this.size = size;
+		this.volumeCapacity = size;
 	}
 	public LinkedFakeServer(WrappedAddress realServer){
-		head=new FakeServer(realServer);
+		head=new VirtualServer(realServer);
 		head.setHead(true);
 		this.realServer=realServer;
 		realServerTag=realServer.getIp()+":"+realServer.getPort();
-		size=0;	//tail and head doesn't count;
+		volumeCapacity=0;	//tail and head doesn't count;
 	}
 	public LinkedFakeServer(){
 		
 		
 	}
 
-	public FakeServer getHead() {
+	public VirtualServer getHead() {
 		return head;
 	}
-	public void setHead(FakeServer head) {
+	public void setHead(VirtualServer head) {
 		this.head = head;
 	}
 	public WrappedAddress getRealServer() {
@@ -40,7 +68,7 @@ class LinkedFakeServer implements Comparable<LinkedFakeServer> {
 	public void setRealServer(WrappedAddress realServer) {
 		this.realServer = realServer;
 	}
-	public boolean insertHead(FakeServer server){
+	public boolean insertHead(VirtualServer server){
 		if(head==null)	
 				return false;	//if head is null, return false
 		server.setRealServerAddr(getRealServer());
@@ -49,53 +77,59 @@ class LinkedFakeServer implements Comparable<LinkedFakeServer> {
 			head.next.prev=server;
 		head.next=server;
 		server.prev=head;
-		size++;
+		volumeCapacity++;
 		return true;
 	}
 
 	
-	public boolean delete(FakeServer server){
+	public boolean delete(VirtualServer server){
 		if(server.next==null)
 			return false;
 		server.next.prev=server.prev;
 		server.prev.next=server.next;
-		size--;
+		volumeCapacity--;
 		return true;
 	}
 	
-	public FakeServer pop(){
-		if(size==0)
+	public VirtualServer pop(){
+		if(volumeCapacity==0)
 			return null;
-		FakeServer tmp=head.next;
+		VirtualServer tmp=head.next;
 		delete(tmp);
 		return tmp;
 	}
 	
-	public void setNodeOK(){
-		FakeServer tmp = head.next;
-		while(!tmp.isHead()){
-			tmp.setFail(false);
-			tmp=tmp.next;
-		}
-	}
-	
-	public void setNodeFail(){
-		FakeServer tmp = head.next;
-		while(!tmp.isHead()){
-			tmp.setFail(true);
-			tmp=tmp.next;
-		}
-	}
 	
 	public int getSize() {
-		return size;
+		return volumeCapacity;
 	}
 
 
+	public int getVolumeCapacity() {
+		return volumeCapacity;
+	}
+	public void setVolumeCapacity(int volumeCapacity) {
+		this.volumeCapacity = volumeCapacity;
+	}
+	public int getLoadCapacity() {
+		return loadCapacity;
+	}
+	public void setLoadCapacity(int loadCapacity) {
+		this.loadCapacity = loadCapacity;
+		
+	}
+	public String getRealServerTag() {
+		return realServerTag;
+	}
+	public void setRealServerTag(String realServerTag) {
+		this.realServerTag = realServerTag;
+	}
 	@Override
 	public int compareTo(LinkedFakeServer o) {
-		return this.size-o.size;	//could be any other factors other than size of fake servers
+		return this.volumeCapacity-o.volumeCapacity;	//could be any other factors other than size of fake servers
 	}
-
+	
 
 }
+
+

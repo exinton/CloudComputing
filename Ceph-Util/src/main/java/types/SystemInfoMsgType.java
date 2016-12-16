@@ -12,5 +12,6 @@ public enum SystemInfoMsgType implements MsgType{
 		GET_FREE_MEMORY,
 		GET_FREE_SPACE,
 		SYSTEM_INFO_ERROR,
-		IS_ALIVE, FILE_EXIST
+		IS_ALIVE, FILE_EXIST,
+		HEARTBEAT
 }

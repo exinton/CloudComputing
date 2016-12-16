@@ -223,35 +223,71 @@ public class WrapperUtils {
 		
 	}
 	
-	public static Wrapper rebalanceWrapper(Wrapper wrapper) {		
-		wrapper.setUpdating(true);	//set wrapper status to updating
-		int totalNumber=wrapper.map.size();
-		int averageFakeNodes=totalNumber/wrapper.realServerMap.size();
-		//System.out.println("avg size is"+averageFakeNodes);
-		//System.out.println("real server number is"+wrapper.realServerMap.size());
-		for(LinkedFakeServer linkedserver:wrapper.realServerMap.values()){
-			
-			if(linkedserver.getSize()>averageFakeNodes){	
-				
-				if(!wrapper.fakeServerLists.remove(linkedserver)){
-					throw new NullPointerException();
-				}					
-				
+	public static boolean rebalanceWrapperByVolume(Wrapper wrapper) {	
+		if(wrapper.getFakeServerListsByVolume().size()<1)
+			return false;	
+		//total number equals the total unfailed not overloaded fake servers
+		int totalNumber=0;
+		for(LinkedFakeServer fakeserver:wrapper.getFakeServerListsByVolume())
+			totalNumber+=fakeserver.getSize();
+		
+		int averageFakeNodes=totalNumber/wrapper.getFakeServerListsByVolume().size();
+		for(LinkedFakeServer linkedserver:wrapper.getRealServerMap().values()){
+			if(linkedserver.isFail())
+				averageFakeNodes=0;
+			else
+				averageFakeNodes=totalNumber/wrapper.getFakeServerListsByVolume().size();
+			if(linkedserver.getSize()>averageFakeNodes){	//if linkedserver container more virtualnode or failed,pop
+
+				wrapper.getFakeServerListsByVolume().remove(linkedserver);
+	
 				//System.out.println("link size is"+linkedserver.getSize());
 				while(linkedserver.getSize()>averageFakeNodes){
-					FakeServer fakeserver = linkedserver.pop();					
-					LinkedFakeServer tmp = wrapper.fakeServerLists.poll();					
+					VirtualServer fakeserver = linkedserver.pop();					
+					LinkedFakeServer tmp = wrapper.getFakeServerListsByVolume().poll();
+					//exclude the failed node.
+					fakeserver.setRealServerAddr(tmp.getRealServer());
+					fakeserver.setFail(false);
+					fakeserver.setOverload(false);
 					tmp.insertHead(fakeserver);
-					wrapper.fakeServerLists.add(tmp);
+					wrapper.getFakeServerListsByVolume().add(tmp);
 				}
-				wrapper.fakeServerLists.add(linkedserver);	
+				if(averageFakeNodes>0)
+					wrapper.getFakeServerListsByVolume().add(linkedserver);
+				
 			}
 			
 		}
 		wrapper.updateEpochVal();
-		return wrapper;
+		return true;
 		
 	}
+	
+	public static boolean rebalanceWrapperByLoad(String realserverrawip,Wrapper wrapper,int numberOfNodes) {		
+		if(wrapper.getRealServerMap().get(realserverrawip).getSize()-numberOfNodes<1)
+			return false;
+		
+		LinkedFakeServer linkedserver= wrapper.getRealServerMap().get(realserverrawip);
+		if(!linkedserver.isOverLoad()){
+			System.out.println("the node is not overloaded");
+			return false;
+		}
+		for(int i=0;i<numberOfNodes;i++){			
+			if(linkedserver.getSize()>0){
+				VirtualServer fakeserver = linkedserver.pop();	
+				fakeserver.setOverload(false);
+				LinkedFakeServer availableRealServer = wrapper.getFakeServerListsByVolume().poll();				
+				fakeserver.setRealServerAddr(availableRealServer.getRealServer());
+				availableRealServer.insertHead(fakeserver);
+				wrapper.getFakeServerListsByVolume().offer(availableRealServer);
+			}	
+		}						
+		wrapper.updateEpochVal();
+		return true;
+		
+	}
+	
+
 	
 	public static boolean uploadWrapper(Wrapper wrapper){
 		IOControl control = new IOControl(); 
@@ -281,19 +317,28 @@ public class WrapperUtils {
 
 	}
 	
+	public static void printListServerLoad(Wrapper wrapper){
+		for(LinkedFakeServer server:wrapper.getRealServerMap().values()){
+			System.out.println("server: "+server.getRealServer().getIp()+":"+server.getRealServer().getPort()+"  load is  "+server.getLoadCapacity());
+		}		
+	}
+
+	
 	public static Wrapper initWrapper(){
 		
 		List<WrappedAddress> realServerLists=WrapperUtils.getPhysicalNodes();	
-		PriorityQueue<LinkedFakeServer> fakeServerLists=new PriorityQueue<LinkedFakeServer>();
+		PriorityQueue<LinkedFakeServer> fakeServerListsByVolume=new PriorityQueue<LinkedFakeServer>(1,new VolumeComparator());
+		PriorityQueue<LinkedFakeServer> fakeServerListsByLoad=new PriorityQueue<LinkedFakeServer>(1,new LoadComparator());
 		HashMap<String,LinkedFakeServer>  realServerMap= new HashMap<>();
 		for(WrappedAddress addr:realServerLists){
 			LinkedFakeServer tmp=new LinkedFakeServer(addr);	
-			fakeServerLists.add(tmp);
+			fakeServerListsByVolume.add(tmp);
+			fakeServerListsByLoad.add(tmp);
 			realServerMap.put(addr.getServerAddr(),tmp);
 		}			
 		CephMap cephMap=WrapperUtils.getCephMap();		
-		SortedMap<String,FakeServer> map = new TreeMap<>();
-		Wrapper wrapper =new Wrapper(map,fakeServerLists,cephMap,realServerMap);
+		SortedMap<String,VirtualServer> map = new TreeMap<>();
+		Wrapper wrapper =new Wrapper(map,fakeServerListsByVolume,fakeServerListsByLoad,cephMap,realServerMap);
 		wrapper.initWrapper();
 		return wrapper;
 
@@ -304,10 +349,15 @@ public class WrapperUtils {
     	IOControl control = new IOControl(); 
     	Wrapper wrapper=null; 
     	long version=-1;
- 		if(jsonFile.isFile()){
-			 wrapper= WrapperUtils.loadFromJSON(jsonFile);
-			 version=wrapper.getEpochVal();
-		 }
+    	try{
+    		if(jsonFile.isFile()){
+   			 wrapper= WrapperUtils.loadFromJSON(jsonFile);
+   			 version=wrapper.getEpochVal();
+   		 }
+    	}catch(NullPointerException e){
+    		
+    	}
+ 		
 			 
     	//only one monitor in addr
         Session session = new Session(MonitorMsgType.CACHE_VALID);
@@ -321,23 +371,66 @@ public class WrapperUtils {
 						} catch (Exception e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
+							return wrapper;	//if failed to connect monitor, return json value
 						}
                         if (response.getType() == MonitorMsgType.CACHE_VALID) {
                             if (!response.getBoolean("isValid")) {
                                System.out.println("the current wrapper version is older than the monitor's,update it!");
                                String jsonValue = response.getString("latestMap");
-       
                                try {
-								wrapper = mapper.readValue(jsonValue, Wrapper.class);
+								wrapper = mapper.readValue(jsonValue, Wrapper.class);								
 							} catch (IOException e) {
 								// TODO Auto-generated catch block
-								e.printStackTrace();
+								e.printStackTrace();	//if failed to decode, return previous
+								return wrapper;
+							}
+                              try{ 
+                            	  WrapperUtils.saveToJSON(jsonFile, wrapper);
+                            	  }
+                              catch(NullPointerException e){
+                            	  
+                              }
+                            }
+                        }else
+                        	System.out.println("the current wrapper version is the same with monitor's,no update!");
+
+        return wrapper;
+
+    }
+    public static Wrapper downloadWrapper(Wrapper wrapper) {
+    	IOControl control = new IOControl(); 
+    	long version=wrapper.getEpochVal();
+			 
+    	//only one monitor in addr
+        Session session = new Session(MonitorMsgType.CACHE_VALID);
+        session.set("epochVal", version);
+
+                  //     System.out.println("here   "+a);
+                  //      a++;
+                        Session response = null;
+						try {
+							response = control.request(session, monitorAddr);
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							return wrapper;	//if failed to connect monitor, return json value
+						}
+                        if (response.getType() == MonitorMsgType.CACHE_VALID) {
+                            if (!response.getBoolean("isValid")) {
+                               System.out.println("the current wrapper version is older than the monitor's,update it!");
+                               String jsonValue = response.getString("latestMap");
+                               try {
+								wrapper = mapper.readValue(jsonValue, Wrapper.class);								
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();	//if failed to decode, return previous
+								return wrapper;
 							}
                                WrapperUtils.saveToJSON(jsonFile, wrapper);
-                            }
-                        }
-                        System.out.println("the current wrapper version is the same with monitor's,no update!");
+                            }else
+                            	System.out.println("the current wrapper version is the same with monitor's,no update!");
 
+                        }
         return wrapper;
 
     }

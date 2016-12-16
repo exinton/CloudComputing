@@ -26,16 +26,13 @@ import java.util.Queue;
 import types.FileBackup;
 import types.MonitorMsgType;
 import types.SystemInfoMsgType;
+import types.WrapperMsgType;
 import types.FileWriteMsgType;
 import net.IOControl;
 import net.MsgHandler;
 import net.MsgType;
 import net.Session;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import crush.CrushRun;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.util.Arrays;
 import java.util.Date;
@@ -44,6 +41,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import org.iocontrol.MonitorProperties;
 import message.IOMessageConstants;
 import types.ShareFileServerMsgType;
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 //import sample.EchoMsgType;
 //import sample.FileReadEchoServer;
@@ -51,28 +49,33 @@ import types.ShareFileServerMsgType;
 //import sample.RawLogger;
 //import sample.log.Utils;
 import util.Log;
+import wrapper.IWrapperHolder;
 import wrapper.Wrapper;
+import wrapper.WrapperHolder;
+import wrapper.WrapperHolderType;
 import wrapper.WrapperUtils;
+import wrappernet.HeartBeatBase;
+import wrappernet.WrapperMsgHandler;
 
-/**
- *
- * @author Avinash
- */
-public class cephMonitor {
+
+public class cephMonitor implements IWrapperHolder{
 	
-	private static Wrapper wrapper;
+	public static WrapperHolder wrapperHolder=new WrapperHolder();
 	private static Address monitorAddr;      
 	private	static String jsonFileName;
+	private	static String ipaddr;
+	private	static int ipport;
+	private static int updateTimer;
 
 	private static Log log = Log.get();
     public final static ScheduledExecutorService scheduler
             = Executors.newScheduledThreadPool(1);
     public static Wrapper getWrapper() {
-		return wrapper;
+		return wrapperHolder.getWrapper();
 	}
 
 	public synchronized static void setWrapper(Wrapper wrapper) {
-		cephMonitor.wrapper = wrapper;
+		wrapperHolder.setWrapper(wrapper);
 		WrapperUtils.saveToJSON(new File(jsonFileName), getWrapper());
 	}
     static class MonitorServer implements MsgHandler {
@@ -95,7 +98,7 @@ public class cephMonitor {
 
                 if (type == MonitorMsgType.CACHE_VALID) {
                     Long epochVal = session.getLong("epochVal");
-                    if (epochVal.equals(CephGlobalParameter.getCephMap().getEpochVal())) {
+                    if (epochVal==wrapperHolder.getWrapper().getEpochVal()) {
                         Session reply = new Session(MonitorMsgType.CACHE_VALID);
                         reply.set("isValid", true);                       // System.out.println("sending response");
                         control.response(reply, session);
@@ -123,8 +126,12 @@ public class cephMonitor {
                     try {
 
                         Wrapper tempWrapper = WrapperUtils.loadFromString(jsonValue);
-                        if(tempWrapper.getEpochVal()>getWrapper().getEpochVal())
+                        if(tempWrapper.getEpochVal()>getWrapper().getEpochVal()){
+                        	System.out.println("received wrapper version is higher");
                         	setWrapper(tempWrapper);
+                        }else
+                        	System.out.println("received wrapper version is lower");
+                        	
                         response.set(IOMessageConstants.UPDATE_MAP_RESPONSE_MESSAGE, "updated");
                     } catch (Exception e) {
                     	e.printStackTrace();
@@ -138,35 +145,7 @@ public class cephMonitor {
                     log.i("Wait till the monitor gets the latest map");
                     while (CephGlobalParameter.getCephMap().isUpdating());
                     log.i("Start modifying the ceph map");
-
-                    /*
-                     ArrayList<CephNode> modify_path = (ArrayList<CephNode>) session.get("modify_path");
-                     Session returnSession = new Session(MonitorMsgType.ACK_MODIFY);
-                     CephNode overloadedNode = modify_path.get(0);
-                    
-                     CephNode result = getCephNodeWithID(overloadedNode.getId());
-                    
-                     if(result != null){
-                     if(result.getIsDisk()){
-                     result.setIsOverloaded(true);
-                     CephMap cm = CephGlobalParameter.getCephMap();
-                     cm.upateEpochVal();
-                     System.out.println("overload: success");
-                     returnSession.set("message", "success");
-                     control.response(returnSession, session);
-                     // after returning status do the transferring process
-                     transferLoad(result);
-                     } else {
-                     System.out.println("ERROR: only disk nodes can be marked as overloaded");
-                     returnSession.set("message", "ERROR: only disk nodes can be marked as overloaded");
-                     control.response(returnSession, session);
-                     }
-                     } else {
-                     System.out.println("ERROR: Node ID not present");
-                     returnSession.set("message", "ERROR: Node ID not present");
-                     control.response(returnSession, session);
-                     }
-                     */
+      
                     CephGlobalParameter.getCephMap().printMap();
                 }
                 if (type == MonitorMsgType.OVERLOADED) {
@@ -351,112 +330,8 @@ public class cephMonitor {
         }
     }
 
-    public static class ModifyStatus {
 
-        public boolean status;
-        public String message;
-    }
 
-    public static ModifyStatus modify_map_add(ArrayList<CephNode> modify_path) {
-//        boolean returnStatus = true;
-        cephMonitor.ModifyStatus m_status = new cephMonitor.ModifyStatus();
-        m_status.status = true;
-        m_status.message = "";
-
-        CephMap cm = CephGlobalParameter.getCephMap();
-        CephNode root = cm.getNode();
-        boolean errorOccurred = false;
-        boolean newPathTaken = false;
-        CephNode addToNode = null;
-        CephNode newTree = null;
-        CephNode parent = root, newTreeParent = null;
-        int level = 1;
-        for (CephNode node : modify_path) {
-            if (node.getId().equals("0")) {
-                // new node should be created
-
-                CephNode current = instantiateCephNode(node, level);
-
-                if (current == null) {
-                    // node not created, some error
-                    System.out.println("ERROR: couldn't instantiate new node");
-                    m_status.message = "ERROR: Not able to instantiate node, check the details input";
-                    m_status.status = false;
-                    errorOccurred = true;
-                    break;
-                }
-                if (!newPathTaken) {
-                    addToNode = parent;
-                    newTree = current;
-                    newPathTaken = true;
-                } else {
-                    newTreeParent.addChild(current);
-                }
-                newTreeParent = current;
-            } else {
-                if (newPathTaken) {
-                    // error
-                    System.out.println("ERROR: node id given after new path");
-                    errorOccurred = true;
-                    m_status.status = false;
-                    m_status.message = "ERROR: Referening existing node after branching out to a new node";
-                    break;
-                } else {
-                    boolean nodeFound = false;
-                    for (CephNode i : parent.getChildren()) {
-                        if (node.getId().equals(i.getId())) {
-                            parent = i;
-                            nodeFound = true;
-                        }
-                    }
-
-                    if (!nodeFound) {
-                        // error
-                        System.out.println("ERROR: node id could not be found");
-                        errorOccurred = true;
-                        m_status.status = false;
-                        m_status.message = "ERROR: node id input cannot be found";
-                        break;
-                    }
-                }
-            }
-            level++;
-        }
-
-        if (!errorOccurred && addToNode != null && newTree != null) {
-            addToNode.addChild(newTree);
-            cm.upateEpochVal();
-            if (newTree.getIsDisk()) {
-                cm.changeBackup(newTree.getAddress());
-            }
-        } /*else {
-         System.out.println("ERROR OCCURED");
-         m_status.status = false;    
-         } */
-
-        return m_status;
-    }
-
-    static ModifyStatus modify_map_remove(CephNode delete_node) {
-        cephMonitor.ModifyStatus m_status = new cephMonitor.ModifyStatus();
-        m_status.status = true;
-        m_status.message = "";
-        CephMap cm = CephGlobalParameter.getCephMap();
-        CephNode result = getCephNodeWithID(delete_node.getId());
-        if (result != null) {
-            result.setIsFailed(true);
-            cm.upateEpochVal();
-            if (result.getIsDisk()) {
-                cm.changeBackup(result.getAddress());
-            }
-        } else {
-            System.out.println("ERROR: Node ID not found");
-            m_status.status = false;
-            m_status.message = "Node ID not found";
-        }
-
-        return m_status;
-    }
 
     public static CephNode getCephNodeWithID(String ID) {
         CephNode result = null;
@@ -718,46 +593,58 @@ public class cephMonitor {
 
         return newNode;
     }
-
-    /*
-     public static void main(String[] args){
-     Monitor.sampleClusterMap();
-     }*/
-    public static void main(String[] args) {    	 
-    	 String dir = System.getProperty("user.dir");
- 		 String confFile=dir+File.separator+"conf"+File.separator+"monitor.conf";
- 		 Properties prop = new Properties();
- 		FileInputStream input;
+    
+    public static void initWrapper(){
+   	 String dir = System.getProperty("user.dir");
+		 String confFile=dir+File.separator+"conf"+File.separator+"monitor.conf";
+		 Properties prop = new Properties();
+		FileInputStream input;
+		updateTimer=30;
 		try {
 			input = new FileInputStream(confFile);
 	        prop.load(input);
+	        updateTimer=Integer.parseInt(prop.getProperty("updateTimer"));
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}	
+		}catch(NumberFormatException e){
+        	
+        }
+        String rawIP= prop.getProperty("address");
 
-         String rawIP= prop.getProperty("address");
- 		String[] ip=rawIP.split(":");
- 		int ipport=Integer.valueOf(ip[1]);
- 		monitorAddr= new Address(ip[0],ipport);      
- 		jsonFileName=dir+File.separator+"wrapper.json";
- 		File file = new File(jsonFileName);		
- 		WrapperUtils.setMonitorAddr(monitorAddr);	
- 		WrapperUtils.setJsonFile(file);
- 		
- 		setWrapper(WrapperUtils.loadFromJSON(file));
- 		
+		String[] ip=rawIP.split(":");
+		ipaddr=ip[0];
+		ipport=Integer.valueOf(ip[1]);
+		monitorAddr= new Address(ipaddr,ipport);      
+		jsonFileName=dir+File.separator+"wrapper.json";
+		File file = new File(jsonFileName);		
+		WrapperUtils.setMonitorAddr(monitorAddr);	
+		WrapperUtils.setJsonFile(file);	
+		setWrapper(WrapperUtils.loadFromJSON(file));
+		wrapperHolder.setType(WrapperHolderType.MONITOR);
+    }
+
+    /*
+     public static void main(String[] args){
+     Monitor.sampleClusterMap();
+     }*/
+    public static void main(String[] args) {   
+    	
+    	initWrapper(); 		
     
         try {
             IOControl server = new IOControl();
             MsgHandler monitor = new cephMonitor.MonitorServer(server);
             server.registerMsgHandlerLast(monitor, MonitorMsgType.values());
-            server.registerMsgHandlerLast(monitor, new FileBackup[]{FileBackup.GET_PREV_NEXT});
+            MsgHandler wrapperhandler = new WrapperMsgHandler(server,wrapperHolder);
+            server.registerMsgHandlerHead(wrapperhandler,WrapperMsgType.values());
+            
+            //server.registerMsgHandlerLast(monitor, new FileBackup[]{FileBackup.GET_PREV_NEXT});
             server.startServer(ipport);
-            //scheduler.scheduleAtFixedRate(new HeartBeatScheduler(), 10, 30, SECONDS);
+            scheduler.scheduleAtFixedRate(new HeartBeatBase(wrapperHolder,server), 10, updateTimer, SECONDS);
             server.waitForServer();
             //scheduler.shutdownNow();
         } catch (IOException e) {
@@ -765,4 +652,28 @@ public class cephMonitor {
         }
 
     }
+
+	@Override
+	public boolean updateWrapper(Wrapper wrapper) {
+		setWrapper(wrapper);
+		return true;
+	}
+
+	@Override
+	public boolean startUpdatingWrapper() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean stopUpdatingWrapper() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Wrapper obtainWrapper() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

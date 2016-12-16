@@ -1,0 +1,5 @@
+#!/bin/bash
+
+
+java -cp "lib/*" osd.FileReadWriteServer  > $CEPH_HOME/log/osd.out 2>&1 &
+

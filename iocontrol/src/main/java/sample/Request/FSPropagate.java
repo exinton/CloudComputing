@@ -46,6 +46,6 @@ public class FSPropagate{
 	}
 
 	public static void main(String args[]) throws IOException{
-		parse("files/test.txt","files/rank.txt",new NullCall());
+		parse("files/full.txt","files/rank.txt",new NullCall());
 	}
 }

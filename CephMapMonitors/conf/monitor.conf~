@@ -3,4 +3,6 @@ ip=127.0.0.1
 port=2053
 
 [monitor]
-address = 127.0.0.1:2569
+address = 127.0.0.1:3598
+updateTimer=10
+
