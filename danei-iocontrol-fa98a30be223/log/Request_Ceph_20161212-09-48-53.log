@@ -1,0 +1,306 @@
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\ 3BB7B32700C9848,0:0,2016-12-12 09:48:54-487,2016-12-12 09:48:55-164
+Fail : LS : test2\a94a8fe5ccb19ba6\,0:-1,2016-12-12 09:48:55-291,2016-12-12 09:48:55-464
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\1BBF5728 654BA15,0:0,2016-12-12 09:48:55-596,2016-12-12 09:48:56-057
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:48:56-185,2016-12-12 09:48:56-261
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : DELETE : test2\bc9c8ba7ff351f3e,0:217984,2016-12-12 09:48:56-345,2016-12-12 09:48:56-537
+Fail : LS : test2,0:-1,2016-12-12 09:48:56-660,2016-12-12 09:48:56-660
+Reason : java.lang.StringIndexOutOfBoundsException: String index out of range: -2
+Success : DELETE : test2\6c33a983eec1b409,0:2291,2016-12-12 09:48:56-777,2016-12-12 09:48:56-930
+Fail : LS : test2,0:-1,2016-12-12 09:48:57-066,2016-12-12 09:48:57-066
+Reason : java.lang.StringIndexOutOfBoundsException: String index out of range: -2
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\414CEA7C6938D519,0:0,2016-12-12 09:48:57-156,2016-12-12 09:48:57-779
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:48:57-908,2016-12-12 09:48:57-984
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : DELETE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\254d76d2609fec03,0:2291,2016-12-12 09:48:58-112,2016-12-12 09:48:58-302
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:48:58-429,2016-12-12 09:48:58-535
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\ C8A8CC546AD248F,0:0,2016-12-12 09:48:58-655,2016-12-12 09:48:59-124
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:48:59-249,2016-12-12 09:48:59-368
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\4808BF547D4234CF,0:0,2016-12-12 09:48:59-493,2016-12-12 09:48:59-967
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:00-097,2016-12-12 09:49:00-191
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : DELETE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\178db47a574c645f,0:257,2016-12-12 09:49:00-280,2016-12-12 09:49:00-438
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:00-521,2016-12-12 09:49:00-604
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\1CA96B6373D14D48,0:0,2016-12-12 09:49:00-682,2016-12-12 09:49:01-156
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:01-282,2016-12-12 09:49:01-355
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\6DB8104B105F2DEE,0:0,2016-12-12 09:49:01-456,2016-12-12 09:49:01-821
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:01-946,2016-12-12 09:49:02-029
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : DELETE : test2\a94a8fe5ccb19ba6\ 3BB7B32700C9848,0:0,2016-12-12 09:49:02-154,2016-12-12 09:49:02-266
+Fail : LS : test2\a94a8fe5ccb19ba6\,0:-1,2016-12-12 09:49:02-384,2016-12-12 09:49:02-470
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\7532AA48522AACB1,0:0,2016-12-12 09:49:02-550,2016-12-12 09:49:02-963
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:03-093,2016-12-12 09:49:03-167
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : DELETE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\ C8A8CC546AD248F,0:0,2016-12-12 09:49:03-257,2016-12-12 09:49:03-384
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:03-482,2016-12-12 09:49:03-546
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\ 838C55E2E65FA2C,0:0,2016-12-12 09:49:03-628,2016-12-12 09:49:04-047
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:04-222,2016-12-12 09:49:04-294
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : DELETE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\7532AA48522AACB1,0:0,2016-12-12 09:49:04-407,2016-12-12 09:49:04-518
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:04-635,2016-12-12 09:49:04-717
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : DELETE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\4808BF547D4234CF,0:0,2016-12-12 09:49:04-835,2016-12-12 09:49:05-075
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:05-205,2016-12-12 09:49:05-313
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : DELETE : test2\49f03965cf98b1f5,0:1634,2016-12-12 09:49:05-428,2016-12-12 09:49:05-556
+Fail : LS : test2,0:-1,2016-12-12 09:49:05-674,2016-12-12 09:49:05-674
+Reason : java.lang.StringIndexOutOfBoundsException: String index out of range: -2
+Success : DELETE : test2\a94a8fe5ccb19ba6\4b6fcb2d521ef0fd,0:2291,2016-12-12 09:49:05-809,2016-12-12 09:49:05-929
+Fail : LS : test2\a94a8fe5ccb19ba6\,0:-1,2016-12-12 09:49:06-037,2016-12-12 09:49:06-132
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : DELETE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\6DB8104B105F2DEE,0:0,2016-12-12 09:49:06-247,2016-12-12 09:49:06-361
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:06-448,2016-12-12 09:49:06-543
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\5F29CE39496AC039,0:0,2016-12-12 09:49:06-643,2016-12-12 09:49:07-469
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:07-596,2016-12-12 09:49:07-683
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\5D62AE31 2A0A438,0:0,2016-12-12 09:49:07-764,2016-12-12 09:49:08-750
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:08-875,2016-12-12 09:49:09-007
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\2367118E51E5051E,0:0,2016-12-12 09:49:09-129,2016-12-12 09:49:09-516
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:09-628,2016-12-12 09:49:09-699
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : DELETE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\5D62AE31 2A0A438,0:0,2016-12-12 09:49:09-824,2016-12-12 09:49:09-953
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:10-063,2016-12-12 09:49:10-163
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : DELETE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\5F29CE39496AC039,0:0,2016-12-12 09:49:10-261,2016-12-12 09:49:10-373
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:10-488,2016-12-12 09:49:10-560
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : DELETE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\1CA96B6373D14D48,0:0,2016-12-12 09:49:10-639,2016-12-12 09:49:10-768
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:10-890,2016-12-12 09:49:10-963
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\7B664C5261938109,0:0,2016-12-12 09:49:11-069,2016-12-12 09:49:11-471
+Fail : LS : test2\a94a8fe5ccb19ba6\,0:-1,2016-12-12 09:49:11-598,2016-12-12 09:49:11-713
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : DELETE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\ 838C55E2E65FA2C,0:0,2016-12-12 09:49:11-807,2016-12-12 09:49:11-958
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:12-078,2016-12-12 09:49:12-150
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\684212276C9BE843,0:0,2016-12-12 09:49:12-270,2016-12-12 09:49:12-665
+Fail : LS : test2\a94a8fe5ccb19ba6\,0:-1,2016-12-12 09:49:12-793,2016-12-12 09:49:12-894
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : DELETE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\3eef580036f1724a,0:257,2016-12-12 09:49:12-982,2016-12-12 09:49:13-132
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:13-260,2016-12-12 09:49:13-362
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : DELETE : test2\a94a8fe5ccb19ba6\7B664C5261938109,0:0,2016-12-12 09:49:13-487,2016-12-12 09:49:13-613
+Fail : LS : test2\a94a8fe5ccb19ba6\,0:-1,2016-12-12 09:49:13-731,2016-12-12 09:49:13-832
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\27A6B2DB7194FB1B,0:0,2016-12-12 09:49:13-927,2016-12-12 09:49:14-321
+Fail : LS : test2\a94a8fe5ccb19ba6\,0:-1,2016-12-12 09:49:14-447,2016-12-12 09:49:14-583
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\4FD2EB8126C726FE,0:0,2016-12-12 09:49:14-721,2016-12-12 09:49:15-214
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:15-321,2016-12-12 09:49:15-410
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : DELETE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\1BBF5728 654BA15,0:0,2016-12-12 09:49:15-493,2016-12-12 09:49:15-607
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:15-685,2016-12-12 09:49:15-757
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : DELETE : test2\a94a8fe5ccb19ba6\27A6B2DB7194FB1B,0:0,2016-12-12 09:49:15-861,2016-12-12 09:49:16-003
+Fail : LS : test2\a94a8fe5ccb19ba6\,0:-1,2016-12-12 09:49:16-125,2016-12-12 09:49:16-198
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : DELETE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\414CEA7C6938D519,0:0,2016-12-12 09:49:16-275,2016-12-12 09:49:16-396
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:16-503,2016-12-12 09:49:16-612
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : DELETE : test2\acde102dac5bbe15,0:6030,2016-12-12 09:49:16-697,2016-12-12 09:49:16-801
+Fail : LS : test2,0:-1,2016-12-12 09:49:16-961,2016-12-12 09:49:16-961
+Reason : java.lang.StringIndexOutOfBoundsException: String index out of range: -2
+Success : DELETE : test2\8da7cc13802eefe0,0:2291,2016-12-12 09:49:17-071,2016-12-12 09:49:17-184
+Fail : LS : test2,0:-1,2016-12-12 09:49:17-287,2016-12-12 09:49:17-287
+Reason : java.lang.StringIndexOutOfBoundsException: String index out of range: -2
+Success : DELETE : test2\a94a8fe5ccb19ba6\684212276C9BE843,0:0,2016-12-12 09:49:17-368,2016-12-12 09:49:17-504
+Fail : LS : test2\a94a8fe5ccb19ba6\,0:-1,2016-12-12 09:49:17-632,2016-12-12 09:49:17-733
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\42DEF5B83F51D8D2,0:0,2016-12-12 09:49:17-827,2016-12-12 09:49:18-239
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:18-337,2016-12-12 09:49:18-409
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : DELETE : test2\1a7683b6645f9b6a,0:14529,2016-12-12 09:49:18-492,2016-12-12 09:49:18-711
+Fail : LS : test2,0:-1,2016-12-12 09:49:18-800,2016-12-12 09:49:18-800
+Reason : java.lang.StringIndexOutOfBoundsException: String index out of range: -2
+Success : DELETE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\4FD2EB8126C726FE,0:0,2016-12-12 09:49:18-889,2016-12-12 09:49:19-006
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:19-134,2016-12-12 09:49:19-235
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\7181C4CC 50675E7,0:0,2016-12-12 09:49:19-342,2016-12-12 09:49:20-112
+Fail : LS : test2\a94a8fe5ccb19ba6\,0:-1,2016-12-12 09:49:20-229,2016-12-12 09:49:20-326
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : DELETE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\42DEF5B83F51D8D2,0:0,2016-12-12 09:49:20-413,2016-12-12 09:49:20-521
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:20-629,2016-12-12 09:49:20-735
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\2D3041F0722EB9CB,0:0,2016-12-12 09:49:20-827,2016-12-12 09:49:21-279
+Fail : LS : test2\a94a8fe5ccb19ba6\,0:-1,2016-12-12 09:49:21-370,2016-12-12 09:49:21-451
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\  D4B0C24BA4707E,0:0,2016-12-12 09:49:21-533,2016-12-12 09:49:21-912
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:22-040,2016-12-12 09:49:22-115
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : DELETE : test2\a94a8fe5ccb19ba6\2D3041F0722EB9CB,0:0,2016-12-12 09:49:22-228,2016-12-12 09:49:22-348
+Fail : LS : test2\a94a8fe5ccb19ba6\,0:-1,2016-12-12 09:49:22-464,2016-12-12 09:49:22-537
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : DELETE : test2\a94a8fe5ccb19ba6\7181C4CC 50675E7,0:0,2016-12-12 09:49:22-708,2016-12-12 09:49:22-821
+Fail : LS : test2\a94a8fe5ccb19ba6\,0:-1,2016-12-12 09:49:22-930,2016-12-12 09:49:23-036
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\6B30A52E7399F768,0:0,2016-12-12 09:49:23-161,2016-12-12 09:49:23-791
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:23-916,2016-12-12 09:49:23-990
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : DELETE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\2367118E51E5051E,0:0,2016-12-12 09:49:24-070,2016-12-12 09:49:24-191
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:24-297,2016-12-12 09:49:24-364
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : DELETE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\  D4B0C24BA4707E,0:0,2016-12-12 09:49:24-451,2016-12-12 09:49:24-566
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:24-643,2016-12-12 09:49:24-726
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : DELETE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\6B30A52E7399F768,0:0,2016-12-12 09:49:24-815,2016-12-12 09:49:24-921
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:25-044,2016-12-12 09:49:25-116
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\70FD9DE457435A56,0:0,2016-12-12 09:49:25-229,2016-12-12 09:49:25-629
+Fail : LS : test2\a94a8fe5ccb19ba6\,0:-1,2016-12-12 09:49:25-754,2016-12-12 09:49:25-829
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : DELETE : test2\a94a8fe5ccb19ba6\70FD9DE457435A56,0:0,2016-12-12 09:49:25-921,2016-12-12 09:49:26-044
+Fail : LS : test2\a94a8fe5ccb19ba6\,0:-1,2016-12-12 09:49:26-169,2016-12-12 09:49:26-245
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\112DC7D610473B4A,0:0,2016-12-12 09:49:26-364,2016-12-12 09:49:26-782
+Fail : LS : test2\a94a8fe5ccb19ba6\,0:-1,2016-12-12 09:49:26-907,2016-12-12 09:49:26-991
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : DELETE : test2\a94a8fe5ccb19ba6\112DC7D610473B4A,0:0,2016-12-12 09:49:27-119,2016-12-12 09:49:27-675
+Fail : LS : test2\a94a8fe5ccb19ba6\,0:-1,2016-12-12 09:49:27-751,2016-12-12 09:49:27-813
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\382CCD0964378CC9,0:0,2016-12-12 09:49:27-889,2016-12-12 09:49:28-260
+Fail : LS : test2\a94a8fe5ccb19ba6\,0:-1,2016-12-12 09:49:28-378,2016-12-12 09:49:28-494
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\2D98DDD752792569,0:0,2016-12-12 09:49:28-594,2016-12-12 09:49:29-005
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:29-132,2016-12-12 09:49:29-223
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\ D602CF54C99B358,0:0,2016-12-12 09:49:29-305,2016-12-12 09:49:29-731
+Fail : LS : test2\a94a8fe5ccb19ba6\,0:-1,2016-12-12 09:49:29-856,2016-12-12 09:49:29-968
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\74FE5F472287B24E,0:0,2016-12-12 09:49:30-090,2016-12-12 09:49:30-549
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:30-626,2016-12-12 09:49:30-690
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\5CE152C1489E5029,0:0,2016-12-12 09:49:30-765,2016-12-12 09:49:31-227
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:31-351,2016-12-12 09:49:31-423
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : DELETE : test2\a94a8fe5ccb19ba6\382CCD0964378CC9,0:0,2016-12-12 09:49:31-505,2016-12-12 09:49:31-682
+Fail : LS : test2\a94a8fe5ccb19ba6\,0:-1,2016-12-12 09:49:31-806,2016-12-12 09:49:31-890
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : DELETE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\74FE5F472287B24E,0:0,2016-12-12 09:49:31-967,2016-12-12 09:49:32-128
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:32-229,2016-12-12 09:49:32-296
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\40A824DF72F10189,0:0,2016-12-12 09:49:32-373,2016-12-12 09:49:32-775
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:32-895,2016-12-12 09:49:32-986
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\4E4053B042D1BB01,0:0,2016-12-12 09:49:33-105,2016-12-12 09:49:34-445
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:34-563,2016-12-12 09:49:34-662
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\2C7C8C0079F42C87,0:0,2016-12-12 09:49:34-769,2016-12-12 09:49:36-006
+Fail : LS : test2\a94a8fe5ccb19ba6\,0:-1,2016-12-12 09:49:36-133,2016-12-12 09:49:36-277
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\5AA1A6415058189F,0:0,2016-12-12 09:49:36-369,2016-12-12 09:49:36-839
+Fail : LS : test2\a94a8fe5ccb19ba6\,0:-1,2016-12-12 09:49:36-963,2016-12-12 09:49:37-065
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : DELETE : test2\a94a8fe5ccb19ba6\ D602CF54C99B358,0:0,2016-12-12 09:49:37-159,2016-12-12 09:49:37-277
+Fail : LS : test2\a94a8fe5ccb19ba6\,0:-1,2016-12-12 09:49:37-376,2016-12-12 09:49:37-441
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : DELETE : test2\a94a8fe5ccb19ba6\2C7C8C0079F42C87,0:0,2016-12-12 09:49:37-515,2016-12-12 09:49:37-926
+Fail : LS : test2\a94a8fe5ccb19ba6\,0:-1,2016-12-12 09:49:38-052,2016-12-12 09:49:38-124
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : DELETE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\40A824DF72F10189,0:0,2016-12-12 09:49:38-248,2016-12-12 09:49:38-633
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:38-752,2016-12-12 09:49:38-829
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\32CBD4684BE361F3,0:0,2016-12-12 09:49:38-906,2016-12-12 09:49:39-342
+Fail : LS : test2\a94a8fe5ccb19ba6\,0:-1,2016-12-12 09:49:39-433,2016-12-12 09:49:39-514
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\ ECC556D67203A57,0:0,2016-12-12 09:49:39-590,2016-12-12 09:49:40-057
+Fail : LS : test2\a94a8fe5ccb19ba6\,0:-1,2016-12-12 09:49:40-171,2016-12-12 09:49:40-244
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : DELETE : test2\a94a8fe5ccb19ba6\32CBD4684BE361F3,0:0,2016-12-12 09:49:40-361,2016-12-12 09:49:40-503
+Fail : LS : test2\a94a8fe5ccb19ba6\,0:-1,2016-12-12 09:49:40-613,2016-12-12 09:49:40-705
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : DELETE : test2\a94a8fe5ccb19ba6\5AA1A6415058189F,0:0,2016-12-12 09:49:40-793,2016-12-12 09:49:40-900
+Fail : LS : test2\a94a8fe5ccb19ba6\,0:-1,2016-12-12 09:49:40-992,2016-12-12 09:49:41-056
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\ 792C2AB320D7CD2,0:0,2016-12-12 09:49:41-142,2016-12-12 09:49:41-559
+Fail : LS : test2\a94a8fe5ccb19ba6\,0:-1,2016-12-12 09:49:41-679,2016-12-12 09:49:41-793
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : DELETE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\5CE152C1489E5029,0:0,2016-12-12 09:49:41-912,2016-12-12 09:49:42-036
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:42-161,2016-12-12 09:49:42-233
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\7D2A711861A157C0,0:0,2016-12-12 09:49:42-318,2016-12-12 09:49:42-707
+Fail : LS : test2\a94a8fe5ccb19ba6\,0:-1,2016-12-12 09:49:42-831,2016-12-12 09:49:42-928
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\39563973 E0C9881,0:0,2016-12-12 09:49:43-049,2016-12-12 09:49:43-445
+Fail : LS : test2\a94a8fe5ccb19ba6\,0:-1,2016-12-12 09:49:43-572,2016-12-12 09:49:43-648
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\ FA5A0E875D415C3,0:0,2016-12-12 09:49:43-769,2016-12-12 09:49:44-144
+Fail : LS : test2\a94a8fe5ccb19ba6\,0:-1,2016-12-12 09:49:44-269,2016-12-12 09:49:44-340
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\60DE0F4C212272A9,0:0,2016-12-12 09:49:44-475,2016-12-12 09:49:44-906
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:45-031,2016-12-12 09:49:45-105
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\77CFCD6D43E169E9,0:0,2016-12-12 09:49:45-188,2016-12-12 09:49:45-560
+Fail : LS : test2\a94a8fe5ccb19ba6\,0:-1,2016-12-12 09:49:45-688,2016-12-12 09:49:45-760
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\79908E173AB43D77,0:0,2016-12-12 09:49:45-884,2016-12-12 09:49:46-518
+Fail : LS : test2\a94a8fe5ccb19ba6\,0:-1,2016-12-12 09:49:46-644,2016-12-12 09:49:46-716
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\5766C2F02A4AC774,0:0,2016-12-12 09:49:46-853,2016-12-12 09:49:47-256
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:47-380,2016-12-12 09:49:47-452
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\398D73046796615E,0:0,2016-12-12 09:49:47-527,2016-12-12 09:49:47-912
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:48-038,2016-12-12 09:49:48-161
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : DELETE : test2\a94a8fe5ccb19ba6\ FA5A0E875D415C3,0:0,2016-12-12 09:49:48-260,2016-12-12 09:49:48-372
+Fail : LS : test2\a94a8fe5ccb19ba6\,0:-1,2016-12-12 09:49:48-459,2016-12-12 09:49:48-525
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : DELETE : test2\a94a8fe5ccb19ba6\ 792C2AB320D7CD2,0:0,2016-12-12 09:49:48-601,2016-12-12 09:49:48-710
+Fail : LS : test2\a94a8fe5ccb19ba6\,0:-1,2016-12-12 09:49:48-816,2016-12-12 09:49:48-889
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\ 21F61806711DD6B,0:0,2016-12-12 09:49:48-964,2016-12-12 09:49:49-521
+Fail : LS : test2\a94a8fe5ccb19ba6\,0:-1,2016-12-12 09:49:49-646,2016-12-12 09:49:49-715
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\5A22A1BA1511DB88,0:0,2016-12-12 09:49:49-835,2016-12-12 09:49:50-323
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:50-446,2016-12-12 09:49:50-518
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : DELETE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\398D73046796615E,0:0,2016-12-12 09:49:50-597,2016-12-12 09:49:50-726
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:50-850,2016-12-12 09:49:50-929
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\736E1A6B5872FC80,0:0,2016-12-12 09:49:51-049,2016-12-12 09:49:51-455
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:51-538,2016-12-12 09:49:51-636
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : DELETE : test2\a94a8fe5ccb19ba6\7D2A711861A157C0,0:0,2016-12-12 09:49:51-725,2016-12-12 09:49:51-934
+Fail : LS : test2\a94a8fe5ccb19ba6\,0:-1,2016-12-12 09:49:52-058,2016-12-12 09:49:52-134
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\57469DA949604AA8,0:0,2016-12-12 09:49:52-214,2016-12-12 09:49:52-636
+Fail : LS : test2\a94a8fe5ccb19ba6\,0:-1,2016-12-12 09:49:52-762,2016-12-12 09:49:52-877
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : DELETE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\5766C2F02A4AC774,0:0,2016-12-12 09:49:52-971,2016-12-12 09:49:53-122
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:53-247,2016-12-12 09:49:53-347
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : DELETE : test2\a94a8fe5ccb19ba6\ 21F61806711DD6B,0:0,2016-12-12 09:49:53-437,2016-12-12 09:49:53-540
+Fail : LS : test2\a94a8fe5ccb19ba6\,0:-1,2016-12-12 09:49:53-640,2016-12-12 09:49:53-712
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\ DABF68F1AD942C0,0:0,2016-12-12 09:49:53-786,2016-12-12 09:49:54-182
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:54-286,2016-12-12 09:49:54-354
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : DELETE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\4E4053B042D1BB01,0:0,2016-12-12 09:49:54-444,2016-12-12 09:49:54-572
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:54-663,2016-12-12 09:49:54-745
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\6AAA433B4BD30B57,0:0,2016-12-12 09:49:54-823,2016-12-12 09:49:55-253
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:55-374,2016-12-12 09:49:55-492
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\ C42B2537614C67B,0:0,2016-12-12 09:49:55-583,2016-12-12 09:49:56-062
+Fail : LS : test2\a94a8fe5ccb19ba6\,0:-1,2016-12-12 09:49:56-177,2016-12-12 09:49:56-253
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : DELETE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\6AAA433B4BD30B57,0:0,2016-12-12 09:49:56-334,2016-12-12 09:49:56-491
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:56-612,2016-12-12 09:49:56-685
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : DELETE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\5A22A1BA1511DB88,0:0,2016-12-12 09:49:56-761,2016-12-12 09:49:56-875
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:56-954,2016-12-12 09:49:57-016
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : DELETE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\ DABF68F1AD942C0,0:0,2016-12-12 09:49:57-138,2016-12-12 09:49:57-287
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:57-376,2016-12-12 09:49:57-490
+Reason : hadoop4j.NoImplementionException: not supported by openstack
+Success : CREATE_FILE : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\6EAB701B788A21B7,0:0,2016-12-12 09:49:57-575,2016-12-12 09:49:57-956
+Fail : LS : test2\a94a8fe5ccb19ba6\2a5bd02710e975a7\,0:-1,2016-12-12 09:49:58-073,2016-12-12 09:49:58-190
+Reason : hadoop4j.NoImplementionException: not supported by openstack

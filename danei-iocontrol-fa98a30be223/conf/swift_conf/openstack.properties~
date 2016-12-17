@@ -1,0 +1,5 @@
+projectName="admin";
+domainName="default";
+userId="admin";
+password="a11";
+url="http://25.15.195.115:5000/v3";

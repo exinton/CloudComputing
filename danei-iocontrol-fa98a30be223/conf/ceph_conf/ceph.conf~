@@ -1,0 +1,5 @@
+projectName=admin
+domainName=default
+userId=admin
+password=a11
+url=http://192.168.1.130:5000/v3
