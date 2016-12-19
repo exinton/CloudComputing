@@ -56,6 +56,7 @@ tools/log_writer.class
 req/RequestCallback.class
 test/test_conf.class
 req/Rand/ExpGenerator.class
+dhtAPI/DHTAPI.class
 req/Rand/UniformGenerator.class
 sample/FileWriteClient.class
 tools/file_size_convertor.class

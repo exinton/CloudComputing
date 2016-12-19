@@ -30,8 +30,9 @@
 	<classpathentry kind="lib" path="/ceph-client/dependencies/json-20141113.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/manager"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/ceph-client"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/net-control"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/osd"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/rados-java"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/requester"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

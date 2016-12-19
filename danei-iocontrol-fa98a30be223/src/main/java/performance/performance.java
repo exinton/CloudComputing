@@ -70,7 +70,9 @@ public class performance {
 			}
 		}
 		//System.out.println("total_size : "+total_size+" total_time : "+total_time);
-		double reading_speed =  total_size/total_time;
+		double reading_speed=Double.MIN_VALUE;
+		if(total_time!=0)
+			reading_speed=  (double)total_size/total_time;
 //		System.out.println("total_size : "+total_size);
 //		System.out.println("total_time : "+total_time);
 		return reading_speed;
@@ -89,7 +91,9 @@ public class performance {
 				total_time += time;
 			}
 		}
-		double writing_speed =  total_size/total_time;
+		double writing_speed=Double.MIN_VALUE;
+		if(total_time!=0)
+			writing_speed =  (double)total_size/total_time;
 //		System.out.println("total_size : "+total_size);
 //		System.out.println("total_time : "+total_time);
 		return writing_speed;

@@ -23,7 +23,7 @@ public class CephClient{
                      File f = new File("/etc/ceph/ceph.conf");
                      cluster.confReadFile(f);
                      System.out.println("Read the configuration file.");
-                     cluster.confSet("key", "AQCKA1NYMMgmHxAAME1iu9RUpO5hef8ICAQVbg==");
+                     cluster.confSet("key", "AQABFlZYKL8zIhAAX9MVqhlmg9A49amNi8W/rg==");
                      cluster.confSet("mon_host", "192.168.1.129");
 
                         cluster.connect();
@@ -40,9 +40,12 @@ public class CephClient{
                         io.write(oidtwo, contenttwo);
 
                         String[] objects = io.listObjects();
-                        for (String object: objects)
-                                System.out.println(object);
-
+                        for (String object: objects){
+                            System.out.println("file"+object.toString());                          
+                        	io.remove(object);
+                        }
+                            
+                    
                         io.remove(oidone);
                         io.remove(oidtwo);
 

@@ -1,11 +1,14 @@
 package wrappernet;
 
 
+import java.io.IOException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
 import net.IOControl;
 import net.Session;
+import types.MonitorMsgType;
+import types.WrapperMsgType;
 import wrapper.WrapperHolder;
 
 
@@ -21,11 +24,17 @@ public class MULTICASTSessionHandler implements ISessionHandler {
 	
 	
 	@Override
-	public boolean handling(Session session) {
-	    ScheduledExecutorService scheduler= Executors.newScheduledThreadPool(1);		
-	    scheduler.execute(new MultiCastBase(wrapper,control));
-  
+	public boolean handling(Session session) {	
+	    new MultiCastBase(wrapper,control).run();
+	    Session reply = new Session(WrapperMsgType.MULTI_CAST);
+	    try {
+			control.response(reply, session);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	    return true;
+	    
       }
 
 }

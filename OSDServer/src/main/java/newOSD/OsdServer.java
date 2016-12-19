@@ -20,9 +20,9 @@ public class OsdServer {
     private static WrapperHolder wrapper=new WrapperHolder();
     private static IOControl control;
 	private	static String ipaddr;
-	private	static int ipport;
+	private	static int ipport=0;
 	 
-    public static boolean init(){
+    public static boolean init(int port){
     	
    	   Properties prop = new Properties();
    	   String dir = System.getProperty("user.dir");
@@ -35,8 +35,12 @@ public class OsdServer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
-		}     
-        ipport=Integer.valueOf(prop.getProperty("port"));
+		}
+        if(ipport==0){
+        	ipport=Integer.valueOf(prop.getProperty("port"));
+        }else
+        	ipport=port;
+        
         ipaddr=prop.getProperty("ip");
         String rawIP = prop.getProperty("address");       
 		String[] ip=rawIP.split(":");
@@ -53,8 +57,20 @@ public class OsdServer {
     
    
     
-    public static void main(String[] args){    	
-    	if(!init()){
+    public static void main(String[] args){   
+    	
+
+    	ipport=9561;
+    	for(String str:args)
+    		System.out.println(str);
+    	
+    	try{
+    		ipport=Integer.parseInt(args[0]);
+    	}catch(Exception e){
+    		System.out.println(" please input the port of osd server");
+    	}
+    	
+    	if(!init(Integer.valueOf(ipport))){
     		return;
     	} 
     	

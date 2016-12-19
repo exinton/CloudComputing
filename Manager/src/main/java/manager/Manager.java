@@ -67,14 +67,18 @@ public class Manager implements java.io.Serializable {
     static boolean multicast(){
     	IOControl control = new IOControl(); 
  		Session session = new Session(WrapperMsgType.MULTI_CAST);
+ 		Session response=null;
  		try {
-			control.send(session,WrapperUtils.getMonitorAddr() );
+ 			response = control.request(session,WrapperUtils.getMonitorAddr());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
-		}   	
-    	return true;
+		}
+ 		if(response==null)
+ 			return false;
+ 		else
+ 			return true;
     }
     
 
@@ -141,7 +145,8 @@ public class Manager implements java.io.Serializable {
             System.out.println("14. set node fail");
             System.out.println("15. set node not fail");
             System.out.println("16. set node overload");
-            System.out.println("17. set node not overload");   
+            System.out.println("17. set node not overload");
+            System.out.println("18. immediate broadcasting wrapper");   
             System.out.println();
             System.out.print("option: ");
             option = sc.nextInt();
@@ -182,9 +187,17 @@ public class Manager implements java.io.Serializable {
                 	System.out.println("redistributed virtual nodes from physical nodes by load");
                 	break;
                 case 13:
+                	long start1=System.currentTimeMillis();
                 	if(WrapperUtils.uploadWrapper(wrapperHolder.getWrapper()))
                 		System.out.println("latest wrapper uploaded to monitor");
+                	if(multicast()){
+                		long curr1=System.currentTimeMillis();
+                		System.out.println("broadcasted! take "+(curr1-start1)+"ms");
+                	}else{
+                		System.out.println("failed");
+                	}
                 	break;
+                	
                 case 14:
                 	if(setFailNode());
                 	System.out.println("set physical node fail");
@@ -200,6 +213,15 @@ public class Manager implements java.io.Serializable {
                 case 17:
                 	if(setNodeNotOverLoad());
                 	System.out.println("set physical node not overload");
+                	break;
+                case 18:
+                	long start=System.currentTimeMillis();
+                	if(multicast()){
+                		long curr=System.currentTimeMillis();
+                		System.out.println("broadcasted! take "+(curr-start)+"ms");
+                	}else{
+                		System.out.println("failed");
+                	}
                 	break;
                 default:
                     acceptInput = false;

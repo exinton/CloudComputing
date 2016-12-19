@@ -24,10 +24,10 @@ public class isFileValidHandler implements ISessionHandler {
 	public boolean handling(Session session) {
 		long selfEpochVal=wrapper.getWrapper().getEpochVal();
 		 Long epochVal = session.getLong("epochVal");      
-		 Session reply = new Session(WrapperMsgType.FILE_VALID);
-		 
+		 Session reply = new Session(WrapperMsgType.FILE_VALID);	 
 		 if(epochVal==selfEpochVal){
 			 reply.set("isFileValid", true);
+			 System.out.println("receiving request from "+session.getSocket().getRemoteSocketAddress().toString()+",file valide");
 			 try {
 				control.response(reply, session);
 				return true;
@@ -36,9 +36,11 @@ public class isFileValidHandler implements ISessionHandler {
 				e.printStackTrace();
 				return true;
 			}
+			
 		 }		
 		 reply.set("epochVal",selfEpochVal );
 		 reply.set("isFileValid", false);
+		 System.out.println("receiving request from "+session.getSocket().getRemoteSocketAddress().toString()+",file valide");
 		 try {
 			 control.response(reply, session);
 		} catch (Exception e) {

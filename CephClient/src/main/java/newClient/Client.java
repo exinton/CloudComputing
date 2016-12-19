@@ -78,7 +78,7 @@ public class Client {
     }
     
     public static void readFile(String file){
-        
+        long start = System.currentTimeMillis();
     	if(wrapperHolder.getWrapper()==null){
     		wrapperHolder.setWrapper(WrapperUtils.downloadWrapper());
     		if(wrapperHolder.getWrapper()==null){
@@ -112,7 +112,7 @@ public class Client {
             System.out.println("search wrapper structure, find file:" + file + " at " + fileLocation.getIp()+":"+fileLocation.getPort());                                                                                                      
             	int queryResult=query(file,fileLocation);                                      
                 if(queryResult==1){
-                	System.out.println("find file:"+file+" on osd server"+fileLocation.getIp()+":"+fileLocation.getPort());                                        	
+                	System.out.println("find file:"+file+" on osd server"+fileLocation.getIp()+":"+fileLocation.getPort()+": spend"+(System.currentTimeMillis()-start)+"ms");                                        	
                 }
         }
     }

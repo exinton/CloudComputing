@@ -198,7 +198,7 @@ public class WrapperUtils {
 		InputStream input = null;
 		try {
 			input = new FileInputStream(dir + File.separator + "conf" + File.separator + fileName);
-			System.out.println("Reading From properties " + dir + File.separator + "conf" + File.separator + "fileName");
+			System.out.println("Reading From properties " + dir + File.separator + "conf" + File.separator + fileName);
 	        prop.load(input);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -340,6 +340,7 @@ public class WrapperUtils {
 		SortedMap<String,VirtualServer> map = new TreeMap<>();
 		Wrapper wrapper =new Wrapper(map,fakeServerListsByVolume,fakeServerListsByLoad,cephMap,realServerMap);
 		wrapper.initWrapper();
+		wrapper.updateEpochVal();
 		return wrapper;
 
 	}

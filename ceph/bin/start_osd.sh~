@@ -1,5 +1,6 @@
 #!/bin/bash
-
-
-java -cp "lib/*" osd.FileReadWriteServer  > $CEPH_HOME/log/osd.out 2>&1 &
+port= $2
+echo $port
+cd ../../OSDServer
+java -cp "../ceph/lib/*" newOSD.OsdServer $port  > ../ceph/log/osd.out 2>&1 &
 

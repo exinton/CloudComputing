@@ -6,6 +6,7 @@ import org.ini4j.Wini;
 import RESTAPI.RESTAPI;
 import api.RequestAdapterAPI;
 import cephrados.CephRados;
+import dhtAPI.DHTAPI;
 import req.DynamicTree;
 import req.Request;
 import req.RequestCallback;
@@ -281,6 +282,8 @@ public class ReqGenerator{
 				this.api= new RESTAPI(lw,"swift");
 			}else if(this.server_type.equals("Rados")){
 				this.api= new CephRados(lw);
+			}else if(this.server_type.equals("DHT")){
+				this.api= new DHTAPI(lw);
 			}
 		}
 		
